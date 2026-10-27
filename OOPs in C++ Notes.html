@@ -1,0 +1,330 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>OOPs in C++ Notes – English + Hinglish</title><style>
+:root{--bg:#f7f8fb;--card:#fff;--tx:#1b1f2a;--mu:#5b6475;--ac:#4f46e5;--en:#eef2ff;--hi:#fff4e5;--ex:#eef1f5;--bd:#d9dde8;--ok:#16a34a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12141b;--card:#1b1e28;--tx:#e8eaf2;--mu:#9aa3b5;--ac:#8b86ff;--en:#222a52;--hi:#3a2c17;--ex:#262a36;--bd:#2c3140;--ok:#4ade80;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#12141b;--card:#1b1e28;--tx:#e8eaf2;--mu:#9aa3b5;--ac:#8b86ff;--en:#222a52;--hi:#3a2c17;--ex:#262a36;--bd:#2c3140;--ok:#4ade80;color-scheme:dark}
+:root[data-theme="light"]{color-scheme:light}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;transition:background .2s,color .2s;background:var(--bg);color:var(--tx);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.w{max-width:860px;margin:0 auto;padding:16px}
+h1{font-size:1.6rem;margin:.2em 0}h2{font-size:1.2rem;margin:1.4em 0 .4em}
+.sub{color:var(--mu);margin:0 0 10px}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);padding:8px 0;z-index:5;border-bottom:1px solid var(--bd)}
+input[type=search]{width:100%;padding:10px 12px;border:1px solid var(--bd);border-radius:10px;background:var(--card);color:var(--tx);font-size:1rem;box-sizing:border-box}
+.pg{height:8px;background:var(--bd);border-radius:6px;margin-top:8px;overflow:hidden}
+.pg i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.pt{font-size:.85rem;color:var(--mu);margin-top:4px}
+.tb{margin:8px 0}
+details{background:var(--card);border:1px solid var(--bd);border-radius:12px;margin:10px 0;padding:0 14px}
+summary{cursor:pointer;font-weight:600;padding:12px 0;list-style:none}
+summary::before{content:"▸ ";color:var(--ac)}details[open] summary::before{content:"▾ "}
+details.done summary::after{content:" ✅"}
+.en,.hi,.ex{border-radius:10px;padding:8px 12px;margin:8px 0}
+.en{background:var(--en);border-left:4px solid var(--ac)}.hi{background:var(--hi);border-left:4px solid #f59e0b}.ex{background:var(--ex);border-left:4px solid var(--mu)}
+.t{font-size:.72rem;font-weight:700;letter-spacing:.06em;color:var(--mu);margin-bottom:2px}
+body.oe .hi,body.oh .en{display:none}
+ul{margin:.3em 0;padding-left:1.2em}
+code,pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.86rem}
+pre{background:var(--bg);border:1px solid var(--bd);padding:8px;border-radius:8px;overflow-x:auto}
+.sc{overflow-x:auto}table{border-collapse:collapse;font-size:.9rem;margin:6px 0}
+td,th{border:1px solid var(--bd);padding:4px 8px;text-align:left;vertical-align:top}th{background:var(--ex)}
+.tip{border-left:4px solid var(--ac);padding:6px 12px;margin:10px 0;background:var(--card);border-radius:0 8px 8px 0}
+button{background:var(--ac);color:#fff;border:0;border-radius:8px;padding:8px 14px;font-size:.95rem;cursor:pointer;margin:6px 6px 10px 0}
+button.g{background:transparent;color:var(--ac);border:1px solid var(--ac)}button.g.on{background:var(--ac);color:#fff}
+.q{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px;margin:10px 0}
+.opt{display:block;width:100%;text-align:left;background:var(--card);color:var(--tx);border:1px solid var(--bd);margin:6px 0}
+.opt.r{border-color:var(--ok);background:var(--en)}.opt.x{border-color:#dc2626}
+#sc{font-weight:600;color:var(--ok)}
+</style></head><body>
+<div class="w"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><h1>🧩 OOPs in C++ Notes</h1><button class="g" id="th" onclick="tt()" style="white-space:nowrap">🌙 Dark</button></div>
+<p class="sub">Complete syllabus · Easy language · Every topic: English first, then Hinglish · With C++ code examples</p>
+<div class="bar"><input type="search" id="s" placeholder="Search a topic… (virtual, constructor, inheritance)"><div class="pg"><i id="p"></i></div><div class="pt" id="pt"></div></div>
+<div class="tb"><button class="g lb on" onclick="lg('',this)">English + Hinglish</button><button class="g lb" onclick="lg('oe',this)">English only</button><button class="g lb" onclick="lg('oh',this)">Hinglish only</button><button class="g" onclick="tg(true)">Expand all</button><button class="g" onclick="tg(false)">Collapse all</button></div>
+<div class="tip"><b>How to use:</b> open a topic, read English first then Hinglish, study the C++ example, tap <i>Mark as done</i>. Language buttons show one language; the theme button switches dark/light.</div>
+<details><summary>1. Introduction: Procedural vs OOP &amp; the 4 Pillars</summary><div class="in"><div class="en"><div class="t">ENGLISH</div><b>OOP (Object-Oriented Programming)</b> organises a program as <b>objects</b> (data + the functions that work on it) instead of a list of functions acting on separate data (procedural, like C).
+<ul><li><b>Class</b> = blueprint/template. <b>Object</b> = a real instance made from the class (class Car; object myCar).</li>
+<li><b>Encapsulation:</b> wrap data and functions in one unit and hide the data (private).</li>
+<li><b>Abstraction:</b> show only what is needed, hide the how (you press the brake, not worry about hydraulics).</li>
+<li><b>Inheritance:</b> a new class reuses an existing class (Dog is an Animal).</li>
+<li><b>Polymorphism:</b> one name, many forms (same call, different behaviour).</li></ul>
+<b>Benefits:</b> reusability, maintainability, security through data hiding, closer to real world. <b>C++ vs C:</b> C++ adds classes, OOP, references, templates, STL, exceptions, namespaces. C++ is <i>multi-paradigm</i> (not purely OOP).</div><div class="hi"><div class="t">HINGLISH</div><b>OOP (Object-Oriented Programming)</b> program ko <b>objects</b> (data + us par kaam karne wale functions) me organise karta hai, na ki alag data par chalte functions ki list (procedural, jaise C).
+<ul><li><b>Class</b> = blueprint/template. <b>Object</b> = class se bana asli instance (class Car; object myCar).</li>
+<li><b>Encapsulation:</b> data aur functions ko ek unit me bandhna aur data chhupana (private).</li>
+<li><b>Abstraction:</b> sirf zaroori cheez dikhana, kaise hota hai wo chhupana (tum brake dabate ho, hydraulics ki chinta nahi).</li>
+<li><b>Inheritance:</b> nayi class purani class ko reuse karti hai (Dog ek Animal hai).</li>
+<li><b>Polymorphism:</b> ek naam, kai roop (same call, alag behaviour).</li></ul>
+<b>Fayde:</b> reusability, maintainability, data hiding se security, real world ke kareeb. <b>C++ vs C:</b> C++ me classes, OOP, references, templates, STL, exceptions, namespaces hain. C++ <i>multi-paradigm</i> hai (poori tarah OOP nahi).</div><div class="ex"><pre>#include &lt;iostream&gt;
+using namespace std;
+
+class Student {            // class = blueprint
+public:
+    string name;
+    int marks;
+    void show() { cout &lt;&lt; name &lt;&lt; &quot; : &quot; &lt;&lt; marks &lt;&lt; endl; }
+};
+
+int main() {
+    Student s1;            // object = instance
+    s1.name = &quot;Amit&quot;; s1.marks = 85;
+    s1.show();             // Amit : 85
+}</pre></div><button onclick="dn(this)">Mark as done</button></div></details>
+<details><summary>2. Classes &amp; Objects: Access Specifiers, this, static, const</summary><div class="in"><div class="en"><div class="t">ENGLISH</div><ul><li><b>Access specifiers:</b> <code>private</code> (only inside the class; default for <code>class</code>), <code>protected</code> (class + derived classes), <code>public</code> (everywhere).</li>
+<li><b>struct vs class:</b> only difference is the default access: struct = public, class = private.</li>
+<li><b>this pointer:</b> hidden pointer to the current object; used to separate member and parameter names or return <code>*this</code> for chaining.</li>
+<li><b>static member:</b> belongs to the <i>class</i>, one copy shared by all objects (a counter). A <b>static function</b> can only use static members and has no <code>this</code>.</li>
+<li><b>const member function</b> (<code>void f() const</code>) promises not to change the object. <b>mutable</b> member can change even then.</li>
+<li><b>Inline function:</b> compiler may paste the body at call site (faster for tiny functions). Functions defined inside the class are implicitly inline.</li></ul></div><div class="hi"><div class="t">HINGLISH</div><ul><li><b>Access specifiers:</b> <code>private</code> (sirf class ke andar; <code>class</code> me default), <code>protected</code> (class + derived classes), <code>public</code> (kahin bhi).</li>
+<li><b>struct vs class:</b> sirf default access ka fark: struct = public, class = private.</li>
+<li><b>this pointer:</b> current object ka hidden pointer; member aur parameter ka naam alag karne ya <code>*this</code> return karke chaining ke liye.</li>
+<li><b>static member:</b> <i>class</i> ka hota hai, saare objects ke liye ek hi copy (counter). <b>Static function</b> sirf static members use kar sakta hai aur uska <code>this</code> nahi hota.</li>
+<li><b>const member function</b> (<code>void f() const</code>) object ko badalne ka promise nahi todta. <b>mutable</b> member tab bhi badal sakta hai.</li>
+<li><b>Inline function:</b> compiler body ko call ki jagah paste kar sakta hai (chhote functions ke liye fast). Class ke andar define function by default inline hota hai.</li></ul></div><div class="ex"><pre>class Counter {
+    static int count;          // shared by all objects
+    int id;
+public:
+    Counter() { id = ++count; }
+    int getId() const { return id; }          // const function
+    static int total() { return count; }      // static function
+    Counter&amp; setId(int id) { this-&gt;id = id; return *this; }  // this + chaining
+};
+int Counter::count = 0;        // definition outside the class
+// Counter a, b;  Counter::total() -&gt; 2</pre></div><button onclick="dn(this)">Mark as done</button></div></details>
+<details><summary>3. Constructors, Destructors &amp; Rule of 3/5</summary><div class="in"><div class="en"><div class="t">ENGLISH</div>A <b>constructor</b> runs automatically when an object is created (same name as the class, no return type). A <b>destructor</b> (<code>~Class()</code>) runs when the object is destroyed, to release resources.
+<ul><li><b>Types:</b> <i>default</i> (no arguments), <i>parameterized</i>, <i>copy</i> <code>Class(const Class&amp; o)</code>, <i>move</i> <code>Class(Class&amp;&amp; o)</code> (C++11, steals resources from a temporary).</li>
+<li><b>Initializer list</b> <code>Class(int a) : x(a) {}</code> is the right way to init <code>const</code> members, references and base classes (and is faster).</li>
+<li><b>Order:</b> constructors run base &rarr; derived; destructors run derived &rarr; base. Members are built in the order they are <i>declared</i>.</li>
+<li><b>Shallow vs deep copy:</b> default copy copies pointer values (two objects point to the same memory, double delete!). <b>Deep copy</b> allocates new memory and copies the data.</li>
+<li><b>Rule of 3:</b> if you need a custom destructor, copy constructor or copy assignment, you probably need all three. <b>Rule of 5</b> adds move constructor and move assignment. <b>Rule of 0:</b> prefer classes that need none (use smart pointers/STL).</li>
+<li>Constructors cannot be <code>virtual</code>; <code>explicit</code> stops accidental implicit conversion; <code>= default</code> / <code>= delete</code> control generated functions.</li></ul></div><div class="hi"><div class="t">HINGLISH</div><b>Constructor</b> object banne par apne aap chalta hai (class ke naam jaisa, return type nahi). <b>Destructor</b> (<code>~Class()</code>) object khatam hone par chalta hai, resources chhodne ke liye.
+<ul><li><b>Types:</b> <i>default</i> (arguments nahi), <i>parameterized</i>, <i>copy</i> <code>Class(const Class&amp; o)</code>, <i>move</i> <code>Class(Class&amp;&amp; o)</code> (C++11, temporary se resources chura leta hai).</li>
+<li><b>Initializer list</b> <code>Class(int a) : x(a) {}</code> <code>const</code> members, references aur base classes ko init karne ka sahi tareeka hai (aur fast bhi).</li>
+<li><b>Order:</b> constructors base &rarr; derived; destructors derived &rarr; base. Members <i>declare</i> hone ke order me ban-te hain.</li>
+<li><b>Shallow vs deep copy:</b> default copy pointer ki value copy karta hai (do objects same memory par, double delete!). <b>Deep copy</b> nayi memory leta hai aur data copy karta hai.</li>
+<li><b>Rule of 3:</b> custom destructor, copy constructor ya copy assignment chahiye to teeno likho. <b>Rule of 5</b> me move constructor aur move assignment bhi. <b>Rule of 0:</b> aisi classes banao jinhe kuch na likhna pade (smart pointers/STL).</li>
+<li>Constructor <code>virtual</code> nahi ho sakta; <code>explicit</code> accidental implicit conversion rokta hai; <code>= default</code> / <code>= delete</code> auto-generated functions control karte hain.</li></ul></div><div class="ex"><pre>class Buffer {
+    int* data; int n;
+public:
+    Buffer(int n) : n(n), data(new int[n]) {}            // initializer list
+    Buffer(const Buffer&amp; o) : n(o.n), data(new int[o.n]) { // deep copy
+        for (int i = 0; i &lt; n; i++) data[i] = o.data[i];
+    }
+    Buffer&amp; operator=(const Buffer&amp; o) {                  // copy assignment
+        if (this != &amp;o) { delete[] data; n = o.n; data = new int[n];
+            for (int i = 0; i &lt; n; i++) data[i] = o.data[i]; }
+        return *this;
+    }
+    ~Buffer() { delete[] data; }                          // destructor
+};</pre></div><button onclick="dn(this)">Mark as done</button></div></details>
+<details><summary>4. Encapsulation, Abstraction &amp; Friend</summary><div class="in"><div class="en"><div class="t">ENGLISH</div><ul><li><b>Encapsulation</b> in C++: make data <code>private</code> and give controlled access through <b>getters/setters</b> (so you can validate, e.g. no negative balance).</li>
+<li><b>Abstraction</b> is achieved with <i>classes</i> (hide implementation), <i>header files</i>, and <b>abstract classes/interfaces</b> (pure virtual functions). Difference: encapsulation = <i>how</i> you hide (data hiding); abstraction = <i>what</i> you expose.</li>
+<li><b>Friend function/class:</b> a non-member function or class allowed to touch private members. It is not inherited and not mutual. Use sparingly (it weakens encapsulation); common for <code>operator&lt;&lt;</code>.</li>
+<li><b>Nested class</b> lives inside another class; <b>namespaces</b> avoid name clashes.</li></ul></div><div class="hi"><div class="t">HINGLISH</div><ul><li>C++ me <b>Encapsulation</b>: data <code>private</code> rakho aur <b>getters/setters</b> se controlled access do (validation ke liye, jaise balance negative na ho).</li>
+<li><b>Abstraction</b> <i>classes</i> (implementation chhupana), <i>header files</i> aur <b>abstract classes/interfaces</b> (pure virtual functions) se milti hai. Fark: encapsulation = <i>kaise</i> chhupate hain (data hiding); abstraction = <i>kya</i> dikhate hain.</li>
+<li><b>Friend function/class:</b> non-member function ya class jise private members chhune ki permission hai. Inherit nahi hota aur mutual nahi hota. Kam use karo (encapsulation kamzor hota hai); <code>operator&lt;&lt;</code> ke liye common.</li>
+<li><b>Nested class</b> doosri class ke andar hoti hai; <b>namespaces</b> naam ki takkar rokte hain.</li></ul></div><div class="ex"><pre>class Account {
+    double balance = 0;                       // private data
+public:
+    void deposit(double x) { if (x &gt; 0) balance += x; }   // validation
+    double getBalance() const { return balance; }
+    friend void audit(const Account&amp; a);      // friend can see balance
+};
+void audit(const Account&amp; a) { cout &lt;&lt; a.balance; }</pre></div><button onclick="dn(this)">Mark as done</button></div></details>
+<details><summary>5. Inheritance: Types, Access Modes &amp; Diamond Problem</summary><div class="in"><div class="en"><div class="t">ENGLISH</div><b>Inheritance</b> lets a <i>derived</i> class reuse a <i>base</i> class (&ldquo;is-a&rdquo; relationship): <code>class Dog : public Animal</code>.
+<ul><li><b>Types:</b> single, multilevel (A&rarr;B&rarr;C), multiple (C : A, B), hierarchical (many from one base), hybrid.</li>
+<li><b>Access modes:</b> with <code>public</code> inheritance base public stays public, protected stays protected; with <code>protected</code> both become protected; with <code>private</code> both become private. <b>Private members of the base are never accessible</b> in the derived class (they exist but are hidden).</li>
+<li><b>Constructor order:</b> base first, then derived; destructor reverse. Pass base arguments through the initializer list: <code>Derived(int a) : Base(a)</code>.</li>
+<li><b>Diamond problem:</b> D inherits B and C, which both inherit A, so D has <i>two copies</i> of A (ambiguity). Fix: <b>virtual inheritance</b> <code>class B : virtual public A</code>.</li>
+<li><b>Composition</b> (&ldquo;has-a&rdquo;) is often better than inheritance. <b>Name hiding:</b> a derived function with the same name hides all base overloads.</li></ul></div><div class="hi"><div class="t">HINGLISH</div><b>Inheritance</b> me <i>derived</i> class <i>base</i> class ko reuse karti hai (&ldquo;is-a&rdquo; relation): <code>class Dog : public Animal</code>.
+<ul><li><b>Types:</b> single, multilevel (A&rarr;B&rarr;C), multiple (C : A, B), hierarchical (ek base se kai), hybrid.</li>
+<li><b>Access modes:</b> <code>public</code> inheritance me base ka public public, protected protected rehta hai; <code>protected</code> me dono protected; <code>private</code> me dono private. <b>Base ke private members derived me kabhi accessible nahi</b> (hote hain par chhupe).</li>
+<li><b>Constructor order:</b> pehle base, phir derived; destructor ulta. Base ke arguments initializer list se: <code>Derived(int a) : Base(a)</code>.</li>
+<li><b>Diamond problem:</b> D, B aur C se inherit karta hai jo dono A se; D me A ki <i>do copies</i> (ambiguity). Fix: <b>virtual inheritance</b> <code>class B : virtual public A</code>.</li>
+<li><b>Composition</b> (&ldquo;has-a&rdquo;) aksar inheritance se behtar hai. <b>Name hiding:</b> derived me same naam ka function base ke saare overloads chhupa deta hai.</li></ul></div><div class="ex"><pre>class Animal {
+public:
+    Animal()  { cout &lt;&lt; &quot;Animal born\n&quot;; }
+    void eat() { cout &lt;&lt; &quot;eating\n&quot;; }
+};
+class Dog : public Animal {
+public:
+    Dog()  { cout &lt;&lt; &quot;Dog born\n&quot;; }
+    void bark() { cout &lt;&lt; &quot;woof\n&quot;; }
+};
+// Dog d;  prints: Animal born, Dog born   (base first)
+// d.eat(); d.bark();</pre></div><button onclick="dn(this)">Mark as done</button></div></details>
+<details><summary>6. Polymorphism: Compile-time vs Run-time</summary><div class="in"><div class="en"><div class="t">ENGLISH</div><b>Polymorphism</b> = one interface, many behaviours.
+<ul><li><b>Compile-time (static) polymorphism:</b> decided by the compiler. <b>Function overloading</b> (same name, different parameters), <b>operator overloading</b>, templates.</li>
+<li><b>Run-time (dynamic) polymorphism:</b> decided while running. <b>Function overriding</b> with <code>virtual</code>: a base pointer/reference calls the <i>derived</i> version. Needs the same signature.</li>
+<li><b>How virtual works:</b> each class with virtual functions has a <b>vtable</b> (table of function pointers); each object has a hidden <b>vptr</b> pointing to it. At call time the right function is looked up (late/dynamic binding). Cost: a little memory + one indirection.</li>
+<li><b>override</b> keyword catches signature mistakes; <b>final</b> stops further overriding. <b>Overloading vs overriding:</b> overloading = same class/scope, different parameters, compile-time; overriding = base vs derived, same signature, run-time.</li>
+<li><b>Object slicing:</b> assigning a derived object to a base <i>object</i> (not pointer/reference) cuts off the derived part and loses polymorphism.</li></ul></div><div class="hi"><div class="t">HINGLISH</div><b>Polymorphism</b> = ek interface, kai behaviours.
+<ul><li><b>Compile-time (static) polymorphism:</b> compiler decide karta hai. <b>Function overloading</b> (same naam, alag parameters), <b>operator overloading</b>, templates.</li>
+<li><b>Run-time (dynamic) polymorphism:</b> chalte waqt decide hota hai. <code>virtual</code> ke saath <b>function overriding</b>: base pointer/reference <i>derived</i> wala version call karta hai. Signature same hona chahiye.</li>
+<li><b>Virtual kaise kaam karta hai:</b> virtual functions wali har class ki ek <b>vtable</b> (function pointers ki table) hoti hai; har object me chhupa <b>vptr</b> usse point karta hai. Call ke time sahi function dhoondha jata hai (late/dynamic binding). Cost: thodi memory + ek indirection.</li>
+<li><b>override</b> keyword signature ki galti pakadta hai; <b>final</b> aage overriding rokta hai. <b>Overloading vs overriding:</b> overloading = same class/scope, alag parameters, compile-time; overriding = base vs derived, same signature, run-time.</li>
+<li><b>Object slicing:</b> derived object ko base <i>object</i> (pointer/reference nahi) me assign karne par derived hissa kat jata hai aur polymorphism khatam.</li></ul></div><div class="ex"><pre>class Shape {
+public:
+    virtual void draw() { cout &lt;&lt; &quot;Shape\n&quot;; }
+    virtual ~Shape() {}                      // virtual destructor
+};
+class Circle : public Shape {
+public:
+    void draw() override { cout &lt;&lt; &quot;Circle\n&quot;; }
+};
+Shape* p = new Circle();
+p-&gt;draw();      // Circle  (run-time binding because of virtual)
+delete p;       // safe: virtual destructor
+
+// compile-time: overloading
+int add(int a, int b)       { return a + b; }
+double add(double a, double b) { return a + b; }</pre></div><button onclick="dn(this)">Mark as done</button></div></details>
+<details><summary>7. Abstract Classes, Interfaces &amp; Virtual Destructor</summary><div class="in"><div class="en"><div class="t">ENGLISH</div><ul><li><b>Pure virtual function:</b> <code>virtual void f() = 0;</code> has no body in the base. A class with at least one is an <b>abstract class</b>: you <i>cannot create objects</i> of it, but you can have pointers/references to it. Derived classes must override it or they stay abstract too.</li>
+<li><b>Interface</b> in C++ = an abstract class with only pure virtual functions (no data).</li>
+<li><b>Virtual destructor:</b> if you delete a derived object through a base pointer and the base destructor is not virtual, only the base part is destroyed (undefined behaviour, leaks). Make the destructor <code>virtual</code> in every polymorphic base class.</li>
+<li>Constructors cannot be virtual (the vptr is not set up yet). An abstract class can still have constructors, data, and normal functions.</li></ul></div><div class="hi"><div class="t">HINGLISH</div><ul><li><b>Pure virtual function:</b> <code>virtual void f() = 0;</code> base me body nahi. Jis class me kam se kam ek ho wo <b>abstract class</b> hai: uska <i>object nahi ban sakta</i>, par pointer/reference ban sakta hai. Derived class ko use override karna padta hai warna wo bhi abstract rehti hai.</li>
+<li>C++ me <b>Interface</b> = sirf pure virtual functions wali abstract class (data nahi).</li>
+<li><b>Virtual destructor:</b> base pointer se derived object delete karo aur base destructor virtual na ho to sirf base hissa destroy hota hai (undefined behaviour, leaks). Har polymorphic base class me destructor <code>virtual</code> rakho.</li>
+<li>Constructor virtual nahi ho sakta (vptr abhi set nahi hota). Abstract class me constructors, data aur normal functions ho sakte hain.</li></ul></div><div class="ex"><pre>class Payment {                         // interface
+public:
+    virtual void pay(double amt) = 0;   // pure virtual
+    virtual ~Payment() = default;
+};
+class UPI : public Payment {
+public:
+    void pay(double amt) override { cout &lt;&lt; &quot;UPI paid &quot; &lt;&lt; amt; }
+};
+// Payment p;            // ERROR: abstract
+// Payment* p = new UPI; // OK</pre></div><button onclick="dn(this)">Mark as done</button></div></details>
+<details><summary>8. Operator Overloading &amp; Function Overloading Rules</summary><div class="in"><div class="en"><div class="t">ENGLISH</div><ul><li><b>Function overloading:</b> same name, different <i>number or types</i> of parameters (return type alone is not enough). Resolved at compile time.</li>
+<li><b>Operator overloading:</b> give operators meaning for your class (<code>+ - == &lt;&lt; [] ++</code>). Written as a member <code>operator+</code> or a friend function.</li>
+<li><b>Cannot overload:</b> <code>::</code> (scope), <code>.</code> (member access), <code>.*</code>, <code>?:</code>, <code>sizeof</code>. Cannot create new operators or change precedence/arity.</li>
+<li><b>Binary</b> operator as member takes 1 argument (the left side is <code>*this</code>); as non-member takes 2. Stream operators <code>&lt;&lt;</code> and <code>&gt;&gt;</code> must be non-member (often friend). <b>++</b>: prefix <code>operator++()</code>, postfix <code>operator++(int)</code> (dummy int).</li>
+<li><b>Default arguments</b> (<code>void f(int a, int b = 5)</code>) must be at the right end.</li></ul></div><div class="hi"><div class="t">HINGLISH</div><ul><li><b>Function overloading:</b> same naam, parameters ki <i>ginti ya type</i> alag (sirf return type alag hona kaafi nahi). Compile time par resolve hota hai.</li>
+<li><b>Operator overloading:</b> operators ko apni class ke liye matlab dena (<code>+ - == &lt;&lt; [] ++</code>). Member <code>operator+</code> ya friend function ki tarah likhte hain.</li>
+<li><b>Overload nahi ho sakte:</b> <code>::</code> (scope), <code>.</code> (member access), <code>.*</code>, <code>?:</code>, <code>sizeof</code>. Naye operators nahi bana sakte aur precedence/arity nahi badal sakte.</li>
+<li><b>Binary</b> operator member ho to 1 argument leta hai (left side <code>*this</code>); non-member ho to 2. Stream operators <code>&lt;&lt;</code> aur <code>&gt;&gt;</code> non-member (aksar friend) hone chahiye. <b>++</b>: prefix <code>operator++()</code>, postfix <code>operator++(int)</code> (dummy int).</li>
+<li><b>Default arguments</b> (<code>void f(int a, int b = 5)</code>) hamesha right end se.</li></ul></div><div class="ex"><pre>class Complex {
+    double re, im;
+public:
+    Complex(double r = 0, double i = 0) : re(r), im(i) {}
+    Complex operator+(const Complex&amp; o) const { return Complex(re + o.re, im + o.im); }
+    friend ostream&amp; operator&lt;&lt;(ostream&amp; os, const Complex&amp; c) {
+        return os &lt;&lt; c.re &lt;&lt; &quot; + &quot; &lt;&lt; c.im &lt;&lt; &quot;i&quot;;
+    }
+};
+// Complex a(1,2), b(3,4);  cout &lt;&lt; a + b;   // 4 + 6i</pre></div><button onclick="dn(this)">Mark as done</button></div></details>
+<details><summary>9. Memory: Pointers, References, new/delete &amp; Smart Pointers</summary><div class="in"><div class="en"><div class="t">ENGLISH</div><ul><li><b>Pointer</b> stores an address; can be null, reassigned. <b>Reference</b> is an alias for an existing variable; must be initialised, cannot be null, cannot be re-bound.</li>
+<li><b>Stack vs heap:</b> stack = automatic, fast, freed at scope end; heap = manual with <code>new</code>/<code>delete</code> (<code>new[]</code> pairs with <code>delete[]</code>). <b>malloc/free</b> (C) do not call constructors; <b>new/delete</b> do.</li>
+<li><b>Problems:</b> <i>memory leak</i> (forgot delete), <i>dangling pointer</i> (points to freed memory), <i>double delete</i>, <i>null dereference</i>.</li>
+<li><b>RAII</b> (Resource Acquisition Is Initialization): acquire in the constructor, release in the destructor, so cleanup is automatic.</li>
+<li><b>Smart pointers</b> (<code>&lt;memory&gt;</code>): <code>unique_ptr</code> (sole owner, cannot copy, can move), <code>shared_ptr</code> (shared ownership by reference counting), <code>weak_ptr</code> (non-owning, breaks cycles). Prefer <code>make_unique</code>/<code>make_shared</code>.</li>
+<li><b>Copy vs move:</b> move transfers resources from a temporary (<code>std::move</code>) instead of copying (faster). <b>lvalue</b> has a name/address; <b>rvalue</b> is a temporary.</li></ul></div><div class="hi"><div class="t">HINGLISH</div><ul><li><b>Pointer</b> address store karta hai; null ho sakta hai, dobara assign ho sakta hai. <b>Reference</b> existing variable ka alias hai; init karna zaroori, null nahi ho sakta, re-bind nahi hota.</li>
+<li><b>Stack vs heap:</b> stack = automatic, fast, scope khatam hone par free; heap = manual <code>new</code>/<code>delete</code> se (<code>new[]</code> ka jodi <code>delete[]</code>). <b>malloc/free</b> (C) constructors call nahi karte; <b>new/delete</b> karte hain.</li>
+<li><b>Problems:</b> <i>memory leak</i> (delete bhool gaye), <i>dangling pointer</i> (free hui memory ko point), <i>double delete</i>, <i>null dereference</i>.</li>
+<li><b>RAII:</b> constructor me resource lo, destructor me chhodo, to cleanup apne aap hota hai.</li>
+<li><b>Smart pointers</b> (<code>&lt;memory&gt;</code>): <code>unique_ptr</code> (akela owner, copy nahi, move ho sakta hai), <code>shared_ptr</code> (reference counting se shared ownership), <code>weak_ptr</code> (owner nahi, cycles todta hai). <code>make_unique</code>/<code>make_shared</code> ko prefer karo.</li>
+<li><b>Copy vs move:</b> move temporary se resources transfer karta hai (<code>std::move</code>) copy ki jagah (fast). <b>lvalue</b> ka naam/address hota hai; <b>rvalue</b> temporary hota hai.</li></ul></div><div class="ex"><pre>#include &lt;memory&gt;
+void demo() {
+    int x = 10;
+    int* p = &amp;x;      // pointer
+    int&amp; r = x;       // reference (alias)
+    r = 20;           // x is now 20
+
+    auto u = make_unique&lt;int&gt;(5);      // freed automatically
+    auto s1 = make_shared&lt;int&gt;(7);
+    auto s2 = s1;                      // ref count = 2
+}   // no leaks, no delete needed</pre></div><button onclick="dn(this)">Mark as done</button></div></details>
+<details><summary>10. Templates &amp; STL (Generic Programming)</summary><div class="in"><div class="en"><div class="t">ENGLISH</div><ul><li><b>Templates</b> let you write code once for any type (compile-time polymorphism). <b>Function template:</b> <code>template&lt;typename T&gt; T maxOf(T a, T b)</code>. <b>Class template:</b> <code>template&lt;class T&gt; class Stack</code>. Specialization gives a special version for one type.</li>
+<li><b>STL (Standard Template Library)</b> has 3 parts: <b>containers</b>, <b>iterators</b>, <b>algorithms</b> (+ function objects/lambdas).</li>
+<li><b>Containers:</b> <code>vector</code> (dynamic array, O(1) push_back amortised), <code>list</code> (doubly linked), <code>deque</code>, <code>stack</code>, <code>queue</code>, <code>priority_queue</code>, <code>set</code>/<code>map</code> (ordered, red-black tree, O(log n)), <code>unordered_set</code>/<code>unordered_map</code> (hash, O(1) average).</li>
+<li><b>Algorithms:</b> <code>sort</code>, <code>find</code>, <code>reverse</code>, <code>binary_search</code>, <code>accumulate</code>. <b>Lambda:</b> <code>[&amp;](int a){ return a*2; }</code>.</li></ul></div><div class="hi"><div class="t">HINGLISH</div><ul><li><b>Templates</b> se code ek baar likho aur kisi bhi type ke liye chalao (compile-time polymorphism). <b>Function template:</b> <code>template&lt;typename T&gt; T maxOf(T a, T b)</code>. <b>Class template:</b> <code>template&lt;class T&gt; class Stack</code>. Specialization kisi ek type ke liye alag version deti hai.</li>
+<li><b>STL (Standard Template Library)</b> ke 3 parts: <b>containers</b>, <b>iterators</b>, <b>algorithms</b> (+ function objects/lambdas).</li>
+<li><b>Containers:</b> <code>vector</code> (dynamic array, push_back amortised O(1)), <code>list</code> (doubly linked), <code>deque</code>, <code>stack</code>, <code>queue</code>, <code>priority_queue</code>, <code>set</code>/<code>map</code> (ordered, red-black tree, O(log n)), <code>unordered_set</code>/<code>unordered_map</code> (hash, average O(1)).</li>
+<li><b>Algorithms:</b> <code>sort</code>, <code>find</code>, <code>reverse</code>, <code>binary_search</code>, <code>accumulate</code>. <b>Lambda:</b> <code>[&amp;](int a){ return a*2; }</code>.</li></ul></div><div class="ex"><pre>template &lt;typename T&gt;
+T maxOf(T a, T b) { return (a &gt; b) ? a : b; }
+// maxOf(3, 7) -&gt; 7     maxOf(2.5, 1.5) -&gt; 2.5
+
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+vector&lt;int&gt; v = {5, 2, 9, 1};
+sort(v.begin(), v.end());                       // 1 2 5 9
+sort(v.begin(), v.end(), [](int a, int b){ return a &gt; b; });  // descending</pre></div><button onclick="dn(this)">Mark as done</button></div></details>
+<details><summary>11. Exception Handling</summary><div class="in"><div class="en"><div class="t">ENGLISH</div><b>Exceptions</b> separate error handling from normal code. Keywords: <code>try</code> (risky code), <code>throw</code> (raise an error), <code>catch</code> (handle it).
+<ul><li>Catch the most specific type first, general <code>catch(...)</code> last. Catch by <b>const reference</b> (<code>catch(const exception&amp; e)</code>) to avoid slicing.</li>
+<li><b>Stack unwinding:</b> when thrown, the stack is unwound and destructors of local objects run (so RAII keeps things safe).</li>
+<li>Standard exceptions in <code>&lt;stdexcept&gt;</code>: <code>runtime_error</code>, <code>out_of_range</code>, <code>invalid_argument</code>, <code>bad_alloc</code>. Make your own by inheriting from <code>std::exception</code>.</li>
+<li><b>noexcept</b> promises a function will not throw. <b>Never throw from a destructor.</b> Uncaught exceptions call <code>terminate()</code>.</li></ul></div><div class="hi"><div class="t">HINGLISH</div><b>Exceptions</b> error handling ko normal code se alag karte hain. Keywords: <code>try</code> (risky code), <code>throw</code> (error uthana), <code>catch</code> (handle karna).
+<ul><li>Sabse specific type pehle catch karo, general <code>catch(...)</code> aakhir me. <b>const reference</b> se catch karo (<code>catch(const exception&amp; e)</code>) taaki slicing na ho.</li>
+<li><b>Stack unwinding:</b> throw hone par stack unwind hota hai aur local objects ke destructors chalte hain (isliye RAII safe rakhta hai).</li>
+<li>Standard exceptions <code>&lt;stdexcept&gt;</code> me: <code>runtime_error</code>, <code>out_of_range</code>, <code>invalid_argument</code>, <code>bad_alloc</code>. Apni exception <code>std::exception</code> se inherit karke banao.</li>
+<li><b>noexcept</b> promise karta hai ki function throw nahi karega. <b>Destructor se kabhi throw mat karo.</b> Uncaught exception <code>terminate()</code> call karti hai.</li></ul></div><div class="ex"><pre>double divide(int a, int b) {
+    if (b == 0) throw runtime_error(&quot;Divide by zero&quot;);
+    return (double)a / b;
+}
+int main() {
+    try {
+        cout &lt;&lt; divide(10, 0);
+    } catch (const runtime_error&amp; e) {
+        cout &lt;&lt; &quot;Error: &quot; &lt;&lt; e.what();     // Error: Divide by zero
+    } catch (...) {
+        cout &lt;&lt; &quot;Unknown error&quot;;
+    }
+}</pre></div><button onclick="dn(this)">Mark as done</button></div></details>
+<details><summary>12. Useful Keywords &amp; Concepts (static, const, explicit, virtual…)</summary><div class="in"><div class="en"><div class="t">ENGLISH</div><ul><li><b>const:</b> value cannot change; <code>const int* p</code> (data const), <code>int* const p</code> (pointer const), const member function.</li>
+<li><b>static:</b> in a function = keeps value between calls; in a class = shared by all objects; at file level = visible only in that file.</li>
+<li><b>explicit</b> blocks implicit conversions via single-argument constructors. <b>mutable</b> allows change inside a const function. <b>volatile</b> stops compiler optimising a variable. <b>auto</b> deduces type. <b>nullptr</b> is the type-safe null.</li>
+<li><b>Shallow vs deep copy</b>, <b>stack vs heap</b>, <b>copy vs move</b> (covered above). <b>Namespace:</b> <code>std::</code>; avoid <code>using namespace std;</code> in headers.</li>
+<li><b>Interview facts:</b> size of an empty class = <b>1 byte</b> (objects need unique addresses); a class with a virtual function adds a vptr (8 bytes on 64-bit); <b>sizeof</b> includes padding.</li></ul></div><div class="hi"><div class="t">HINGLISH</div><ul><li><b>const:</b> value badal nahi sakti; <code>const int* p</code> (data const), <code>int* const p</code> (pointer const), const member function.</li>
+<li><b>static:</b> function me = calls ke beech value yaad rakhta hai; class me = saare objects me shared; file level par = sirf us file me visible.</li>
+<li><b>explicit</b> single-argument constructors se implicit conversion rokta hai. <b>mutable</b> const function ke andar bhi change allow karta hai. <b>volatile</b> compiler ko variable optimise karne se rokta hai. <b>auto</b> type khud nikalta hai. <b>nullptr</b> type-safe null hai.</li>
+<li><b>Shallow vs deep copy</b>, <b>stack vs heap</b>, <b>copy vs move</b> (upar cover). <b>Namespace:</b> <code>std::</code>; headers me <code>using namespace std;</code> avoid karo.</li>
+<li><b>Interview facts:</b> khali class ka size = <b>1 byte</b> (objects ka unique address chahiye); virtual function wali class me vptr jodta hai (64-bit par 8 bytes); <b>sizeof</b> me padding bhi aati hai.</li></ul></div><button onclick="dn(this)">Mark as done</button></div></details>
+<details><summary>13. SOLID Principles &amp; Basic Design Patterns</summary><div class="in"><div class="en"><div class="t">ENGLISH</div><ul><li><b>S</b> &ndash; Single Responsibility: a class should have one reason to change.</li>
+<li><b>O</b> &ndash; Open/Closed: open for extension (add new classes), closed for modification (do not edit working code).</li>
+<li><b>L</b> &ndash; Liskov Substitution: a derived object must work wherever the base is expected.</li>
+<li><b>I</b> &ndash; Interface Segregation: many small interfaces beat one fat interface.</li>
+<li><b>D</b> &ndash; Dependency Inversion: depend on abstractions (abstract classes), not concrete classes.</li></ul>
+<b>Common patterns:</b> <b>Singleton</b> (one instance only), <b>Factory</b> (create objects without exposing the class), <b>Observer</b> (notify many on change), <b>Strategy</b> (swap algorithms at run time).</div><div class="hi"><div class="t">HINGLISH</div><ul><li><b>S</b> &ndash; Single Responsibility: class ke badalne ki ek hi wajah honi chahiye.</li>
+<li><b>O</b> &ndash; Open/Closed: extension ke liye open (nayi classes jodo), modification ke liye closed (chalte code ko mat chhedo).</li>
+<li><b>L</b> &ndash; Liskov Substitution: jahan base chahiye wahan derived object bhi sahi chale.</li>
+<li><b>I</b> &ndash; Interface Segregation: ek moti interface se kai chhoti interfaces behtar.</li>
+<li><b>D</b> &ndash; Dependency Inversion: abstractions (abstract classes) par depend karo, concrete classes par nahi.</li></ul>
+<b>Common patterns:</b> <b>Singleton</b> (sirf ek instance), <b>Factory</b> (class dikhaye bina object banana), <b>Observer</b> (change par kai ko notify), <b>Strategy</b> (run time par algorithm badalna).</div><div class="ex"><pre>class Logger {                          // Singleton
+    Logger() {}                         // private constructor
+public:
+    Logger(const Logger&amp;) = delete;
+    static Logger&amp; get() { static Logger inst; return inst; }  // thread-safe in C++11
+    void log(const string&amp; m) { cout &lt;&lt; m &lt;&lt; &quot;\n&quot;; }
+};
+// Logger::get().log(&quot;hello&quot;);</pre></div><button onclick="dn(this)">Mark as done</button></div></details>
+<details><summary>14. Top Interview Questions (Quick Revision)</summary><div class="in"><div class="sc"><table style="width:100%"><tr><th style="width:32%">Question</th><th>Short answer (English / Hinglish)</th></tr><tr><td>Class vs Object?</td><td>Class is a blueprint; object is an instance of it. <i>Class blueprint hai, object uska instance.</i></td></tr><tr><td>Struct vs Class in C++?</td><td>Only default access differs: struct public, class private. <i>Sirf default access ka fark.</i></td></tr><tr><td>Overloading vs Overriding?</td><td>Overloading: same scope, different parameters, compile-time. Overriding: base vs derived, same signature, run-time. <i>Overloading compile-time, overriding run-time.</i></td></tr><tr><td>What is a virtual function?</td><td>A function that is resolved at run time through the vtable. <i>Run time par vtable se resolve hota hai.</i></td></tr><tr><td>Why a virtual destructor?</td><td>So deleting via a base pointer destroys the derived part too. <i>Base pointer se delete par derived bhi destroy ho.</i></td></tr><tr><td>Abstract class?</td><td>Has at least one pure virtual function; cannot be instantiated. <i>Pure virtual wali class; object nahi banta.</i></td></tr><tr><td>Can a constructor be virtual?</td><td>No, because the vptr is not set up before construction. <i>Nahi, vptr tab tak set nahi hota.</i></td></tr><tr><td>Copy constructor: when is it called?</td><td>Copy initialisation, pass/return by value, and explicit copies. <i>Value se pass/return aur copy init par.</i></td></tr><tr><td>Shallow vs deep copy?</td><td>Shallow copies pointers; deep copies the pointed data. <i>Shallow pointer copy, deep data copy.</i></td></tr><tr><td>What is the diamond problem?</td><td>Two copies of the top base class in multiple inheritance; fixed by virtual inheritance. <i>Virtual inheritance se fix.</i></td></tr><tr><td>Pointer vs Reference?</td><td>Reference is a non-null alias that cannot be re-bound; pointer can be null and reassigned. <i>Reference null nahi hota, re-bind nahi.</i></td></tr><tr><td>new vs malloc?</td><td>new calls the constructor and returns the right type; malloc only allocates raw bytes. <i>new constructor call karta hai, malloc nahi.</i></td></tr><tr><td>What is RAII?</td><td>Resource lifetime tied to object lifetime (acquire in constructor, release in destructor). <i>Object ke saath resource ki life.</i></td></tr><tr><td>Size of an empty class?</td><td>1 byte, so each object has a unique address. <i>1 byte.</i></td></tr><tr><td>Which operators cannot be overloaded?</td><td>::  .  .*  ?:  sizeof. <i>Ye 5 overload nahi hote.</i></td></tr><tr><td>Encapsulation vs Abstraction?</td><td>Encapsulation hides data inside a class; abstraction hides complexity and shows only essentials. <i>Encapsulation data chhupata hai, abstraction complexity.</i></td></tr></table></div><div class="tip"><b>How to answer:</b> one-line definition, small C++ example, one trade-off. <i>(Pehle definition, phir chhota example, phir ek trade-off.)</i></div><button onclick="dn(this)">Mark as done</button></div></details>
+
+<h2>🧪 Practice Quiz</h2><div id="sc">Score: 0 / 12</div><div id="qz"></div>
+</div><script>
+var T=document.querySelectorAll("details");
+function up(){var d=document.querySelectorAll("details.done").length;document.getElementById("p").style.width=(100*d/T.length)+"%";document.getElementById("pt").textContent=d+" of "+T.length+" topics done"}
+function dn(b){var d=b.closest("details");d.classList.toggle("done");b.textContent=d.classList.contains("done")?"Undo done":"Mark as done";up()}
+function tg(o){T.forEach(function(d){d.open=o})}
+function lg(m,b){document.body.className=m;document.querySelectorAll(".lb").forEach(function(x){x.classList.remove("on")});b.classList.add("on")}
+document.getElementById("s").addEventListener("input",function(e){var v=e.target.value.toLowerCase();T.forEach(function(d){d.style.display=d.textContent.toLowerCase().indexOf(v)>-1?"":"none";if(v&&d.style.display==="")d.open=true})});
+var Q=[["Which is NOT a pillar of OOP?",["Encapsulation","Compilation","Polymorphism"],1],
+["Default access for members of a struct in C++?",["private","protected","public"],2],
+["Run-time polymorphism needs…",["virtual functions","static functions","friend functions"],0],
+["Constructor call order in inheritance?",["Derived then base","Base then derived","Random"],1],
+["Which cannot be created?",["Object of abstract class","Pointer to abstract class","Reference to abstract class"],0],
+["Why make a base destructor virtual?",["Faster code","Correct cleanup via base pointer","Allow overloading"],1],
+["Which operator CANNOT be overloaded?",["+","::","[]"],1],
+["Size of an empty class in C++?",["0","1","8"],1],
+["Which smart pointer allows shared ownership?",["unique_ptr","shared_ptr","auto_ptr"],1],
+["Diamond problem is solved by…",["Virtual inheritance","Friend class","Static members"],0],
+["Function overloading is resolved at…",["Compile time","Run time","Link time only"],0],
+["Pure virtual function syntax?",["virtual void f() = 0;","void f() = virtual;","abstract void f();"],0]];
+var n=0,c=0,h="";
+Q.forEach(function(q,i){h+='<div class="q"><b>'+(i+1)+". "+q[0]+"</b>";q[1].forEach(function(o,j){h+='<button class="opt" onclick="ans(this,'+(j==q[2])+')">'+o+"</button>"});h+="</div>"});
+document.getElementById("qz").innerHTML=h;
+function ans(b,ok){var p=b.parentNode;if(p.dataset.d)return;if(ok){p.dataset.d=1;c++;n++;b.classList.add("r");b.textContent+=" ✅ Correct!"}else{b.classList.add("x");b.textContent+=" ❌ Try again"}document.getElementById("sc").textContent="Score: "+c+" / "+Q.length}
+function eff(){var t=document.documentElement.getAttribute("data-theme");if(t)return t;return window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}
+function st(t){document.documentElement.setAttribute("data-theme",t);document.getElementById("th").textContent=t==="dark"?"☀️ Light":"🌙 Dark";try{localStorage.setItem("oopTheme",t)}catch(e){}}
+function tt(){st(eff()==="dark"?"light":"dark")}
+var sv=null;try{sv=localStorage.getItem("oopTheme")}catch(e){}
+st(sv==="dark"||sv==="light"?sv:eff());
+up();
+</script></body></html>

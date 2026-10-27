@@ -1,0 +1,243 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>SQL Notes – English + Hinglish</title><style>
+:root{--bg:#f7f8fb;--card:#fff;--tx:#1b1f2a;--mu:#5b6475;--ac:#4f46e5;--en:#eef2ff;--hi:#fff4e5;--ex:#eef1f5;--bd:#d9dde8;--ok:#16a34a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12141b;--card:#1b1e28;--tx:#e8eaf2;--mu:#9aa3b5;--ac:#8b86ff;--en:#222a52;--hi:#3a2c17;--ex:#262a36;--bd:#2c3140;--ok:#4ade80;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#12141b;--card:#1b1e28;--tx:#e8eaf2;--mu:#9aa3b5;--ac:#8b86ff;--en:#222a52;--hi:#3a2c17;--ex:#262a36;--bd:#2c3140;--ok:#4ade80;color-scheme:dark}
+:root[data-theme="light"]{color-scheme:light}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;transition:background .2s,color .2s;background:var(--bg);color:var(--tx);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.w{max-width:860px;margin:0 auto;padding:16px}
+h1{font-size:1.6rem;margin:.2em 0}h2{font-size:1.2rem;margin:1.4em 0 .4em}
+.sub{color:var(--mu);margin:0 0 10px}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);padding:8px 0;z-index:5;border-bottom:1px solid var(--bd)}
+input[type=search]{width:100%;padding:10px 12px;border:1px solid var(--bd);border-radius:10px;background:var(--card);color:var(--tx);font-size:1rem;box-sizing:border-box}
+.pg{height:8px;background:var(--bd);border-radius:6px;margin-top:8px;overflow:hidden}
+.pg i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.pt{font-size:.85rem;color:var(--mu);margin-top:4px}
+.tb{margin:8px 0}
+details{background:var(--card);border:1px solid var(--bd);border-radius:12px;margin:10px 0;padding:0 14px}
+summary{cursor:pointer;font-weight:600;padding:12px 0;list-style:none}
+summary::before{content:"▸ ";color:var(--ac)}details[open] summary::before{content:"▾ "}
+details.done summary::after{content:" ✅"}
+.en,.hi,.ex{border-radius:10px;padding:8px 12px;margin:8px 0}
+.en{background:var(--en);border-left:4px solid var(--ac)}.hi{background:var(--hi);border-left:4px solid #f59e0b}.ex{background:var(--ex);border-left:4px solid var(--mu)}
+.t{font-size:.72rem;font-weight:700;letter-spacing:.06em;color:var(--mu);margin-bottom:2px}
+body.oe .hi,body.oh .en{display:none}
+ul{margin:.3em 0;padding-left:1.2em}
+code,pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.86rem}
+pre{background:var(--bg);border:1px solid var(--bd);padding:8px;border-radius:8px;overflow-x:auto}
+.sc{overflow-x:auto}table{border-collapse:collapse;font-size:.9rem;margin:6px 0}
+td,th{border:1px solid var(--bd);padding:4px 8px;text-align:left;vertical-align:top}th{background:var(--ex)}
+.tip{border-left:4px solid var(--ac);padding:6px 12px;margin:10px 0;background:var(--card);border-radius:0 8px 8px 0}
+button{background:var(--ac);color:#fff;border:0;border-radius:8px;padding:8px 14px;font-size:.95rem;cursor:pointer;margin:6px 6px 10px 0}
+button.g{background:transparent;color:var(--ac);border:1px solid var(--ac)}button.g.on{background:var(--ac);color:#fff}
+.q{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px;margin:10px 0}
+.opt{display:block;width:100%;text-align:left;background:var(--card);color:var(--tx);border:1px solid var(--bd);margin:6px 0}
+.opt.r{border-color:var(--ok);background:var(--en)}.opt.x{border-color:#dc2626}
+#sc{font-weight:600;color:var(--ok)}
+</style></head><body>
+<div class="w"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><h1>🗄️ SQL Notes</h1><button class="g" id="th" onclick="tt()" style="white-space:nowrap">🌙 Dark</button></div>
+<p class="sub">Beginner to interview level · Every topic: English first, then Hinglish · SQL examples + practice queries</p>
+<div class="bar"><input type="search" id="s" placeholder="Search a topic… (join, window, group by)"><div class="pg"><i id="p"></i></div><div class="pt" id="pt"></div></div>
+<div class="tb"><button class="g lb on" onclick="lg('',this)">English + Hinglish</button><button class="g lb" onclick="lg('oe',this)">English only</button><button class="g lb" onclick="lg('oh',this)">Hinglish only</button><button class="g" onclick="tg(true)">Expand all</button><button class="g" onclick="tg(false)">Collapse all</button></div>
+<div class="tip"><b>How to use:</b> open a topic, read English then Hinglish, study the SQL example, then try the <b>practice queries</b>. Language buttons show one language; the theme button switches dark/light.</div>
+<details><summary>1. Introduction to SQL &amp; Setup</summary><div class="in"><div class="en"><div class="t">ENGLISH</div><b>SQL</b> (Structured Query Language) is the standard language to talk to relational databases (MySQL, PostgreSQL, SQL Server, Oracle, SQLite). It is <i>declarative</i>: you say <b>what</b> you want, not how to get it.
+<ul><li><b>Command groups:</b> <b>DDL</b> (CREATE, ALTER, DROP, TRUNCATE), <b>DML</b> (INSERT, UPDATE, DELETE), <b>DQL</b> (SELECT), <b>DCL</b> (GRANT, REVOKE), <b>TCL</b> (COMMIT, ROLLBACK, SAVEPOINT).</li>
+<li>SQL keywords are not case-sensitive; end statements with <code>;</code>. Text values use single quotes <code>&lsquo;Amit&rsquo;</code>. Comments: <code>-- one line</code> and <code>/* block */</code>.</li>
+<li>Small differences exist between databases (LIMIT vs TOP vs FETCH FIRST, AUTO_INCREMENT vs SERIAL). These notes mostly use MySQL/PostgreSQL style.</li></ul></div><div class="hi"><div class="t">HINGLISH</div><b>SQL</b> (Structured Query Language) relational databases se baat karne ki standard language hai (MySQL, PostgreSQL, SQL Server, Oracle, SQLite). Ye <i>declarative</i> hai: tum batate ho <b>kya</b> chahiye, kaise nahi.
+<ul><li><b>Command groups:</b> <b>DDL</b> (CREATE, ALTER, DROP, TRUNCATE), <b>DML</b> (INSERT, UPDATE, DELETE), <b>DQL</b> (SELECT), <b>DCL</b> (GRANT, REVOKE), <b>TCL</b> (COMMIT, ROLLBACK, SAVEPOINT).</li>
+<li>SQL keywords case-sensitive nahi; statement <code>;</code> se khatam karo. Text values single quotes me <code>&lsquo;Amit&rsquo;</code>. Comments: <code>-- ek line</code> aur <code>/* block */</code>.</li>
+<li>Databases me thode fark hote hain (LIMIT vs TOP vs FETCH FIRST, AUTO_INCREMENT vs SERIAL). Ye notes zyadatar MySQL/PostgreSQL style me hain.</li></ul><div class="tip"><b>Sample tables used everywhere (tap to compare with queries):</b><br>
+<div class="sc"><table><tr><th>emp_id</th><th>name</th><th>dept_id</th><th>salary</th><th>manager_id</th><th>city</th></tr>
+<tr><td>1</td><td>Amit</td><td>d1</td><td>50000</td><td>NULL</td><td>Jaipur</td></tr><tr><td>2</td><td>Riya</td><td>d2</td><td>60000</td><td>1</td><td>Delhi</td></tr><tr><td>3</td><td>Karan</td><td>d1</td><td>40000</td><td>1</td><td>Jaipur</td></tr><tr><td>4</td><td>Neha</td><td>d3</td><td>70000</td><td>2</td><td>Mumbai</td></tr><tr><td>5</td><td>Rohit</td><td>d2</td><td>60000</td><td>2</td><td>Delhi</td></tr><tr><td>6</td><td>Sara</td><td>NULL</td><td>30000</td><td>3</td><td>Jaipur</td></tr></table></div>
+<b>Employee</b> (above) and <b>Department</b>: d1 = IT, d2 = HR, d3 = Finance, d4 = Sales.</div></div><button onclick="dn(this)">Mark as done</button></div></details>
+<details><summary>2. DDL: CREATE, ALTER, DROP, Data Types &amp; Constraints</summary><div class="in"><div class="en"><div class="t">ENGLISH</div><ul><li><b>Data types:</b> <code>INT</code>, <code>BIGINT</code>, <code>DECIMAL(p,s)</code>, <code>FLOAT</code>, <code>CHAR(n)</code> (fixed), <code>VARCHAR(n)</code> (variable), <code>TEXT</code>, <code>DATE</code>, <code>DATETIME/TIMESTAMP</code>, <code>BOOLEAN</code>.</li>
+<li><b>Constraints:</b> <code>PRIMARY KEY</code>, <code>FOREIGN KEY</code>, <code>UNIQUE</code>, <code>NOT NULL</code>, <code>CHECK</code>, <code>DEFAULT</code>, <code>AUTO_INCREMENT</code>.</li>
+<li><b>ALTER:</b> <code>ADD COLUMN</code>, <code>MODIFY/ALTER COLUMN</code>, <code>DROP COLUMN</code>, <code>RENAME</code>. <b>DROP</b> removes the whole table; <b>TRUNCATE</b> removes all rows fast (resets counters, cannot be rolled back in many DBs); <b>DELETE</b> removes chosen rows.</li></ul></div><div class="hi"><div class="t">HINGLISH</div><ul><li><b>Data types:</b> <code>INT</code>, <code>BIGINT</code>, <code>DECIMAL(p,s)</code>, <code>FLOAT</code>, <code>CHAR(n)</code> (fixed), <code>VARCHAR(n)</code> (variable), <code>TEXT</code>, <code>DATE</code>, <code>DATETIME/TIMESTAMP</code>, <code>BOOLEAN</code>.</li>
+<li><b>Constraints:</b> <code>PRIMARY KEY</code>, <code>FOREIGN KEY</code>, <code>UNIQUE</code>, <code>NOT NULL</code>, <code>CHECK</code>, <code>DEFAULT</code>, <code>AUTO_INCREMENT</code>.</li>
+<li><b>ALTER:</b> <code>ADD COLUMN</code>, <code>MODIFY/ALTER COLUMN</code>, <code>DROP COLUMN</code>, <code>RENAME</code>. <b>DROP</b> poori table hatata hai; <b>TRUNCATE</b> saari rows jaldi hata deta hai (counters reset, kai DBs me rollback nahi); <b>DELETE</b> chuni hui rows hatata hai.</li></ul></div><div class="ex"><pre>CREATE TABLE Department (
+    dept_id   VARCHAR(5) PRIMARY KEY,
+    dept_name VARCHAR(50) NOT NULL UNIQUE
+);
+CREATE TABLE Employee (
+    emp_id     INT PRIMARY KEY AUTO_INCREMENT,
+    name       VARCHAR(50) NOT NULL,
+    dept_id    VARCHAR(5),
+    salary     DECIMAL(10,2) CHECK (salary &gt;= 0) DEFAULT 0,
+    manager_id INT,
+    city       VARCHAR(30),
+    FOREIGN KEY (dept_id)    REFERENCES Department(dept_id) ON DELETE SET NULL,
+    FOREIGN KEY (manager_id) REFERENCES Employee(emp_id)
+);
+ALTER TABLE Employee ADD COLUMN email VARCHAR(80);
+ALTER TABLE Employee DROP COLUMN email;
+TRUNCATE TABLE Employee;   DROP TABLE Employee;</pre></div><button onclick="dn(this)">Mark as done</button></div></details>
+<details><summary>3. DML: INSERT, UPDATE, DELETE</summary><div class="in"><div class="en"><div class="t">ENGLISH</div><ul><li><b>INSERT</b> adds rows (name the columns, it is safer). <b>UPDATE</b> changes rows; <b>always use WHERE</b> or every row changes. <b>DELETE</b> removes rows; also needs WHERE.</li>
+<li>Tip: first run a <code>SELECT</code> with the same WHERE to see which rows will be affected.</li>
+<li><b>Upsert</b> (insert or update): MySQL <code>ON DUPLICATE KEY UPDATE</code>, PostgreSQL <code>ON CONFLICT DO UPDATE</code>. <b>INSERT &hellip; SELECT</b> copies rows from another table.</li></ul></div><div class="hi"><div class="t">HINGLISH</div><ul><li><b>INSERT</b> rows jodta hai (columns ke naam likho, safer hai). <b>UPDATE</b> rows badalta hai; <b>WHERE zaroor lagao</b> warna saari rows badal jaati hain. <b>DELETE</b> rows hatata hai; usme bhi WHERE chahiye.</li>
+<li>Tip: pehle same WHERE ke saath <code>SELECT</code> chalao dekhne ke liye kaunsi rows affect hongi.</li>
+<li><b>Upsert</b> (insert ya update): MySQL <code>ON DUPLICATE KEY UPDATE</code>, PostgreSQL <code>ON CONFLICT DO UPDATE</code>. <b>INSERT &hellip; SELECT</b> dusri table se rows copy karta hai.</li></ul></div><div class="ex"><pre>INSERT INTO Department VALUES (&#x27;d1&#x27;,&#x27;IT&#x27;), (&#x27;d2&#x27;,&#x27;HR&#x27;), (&#x27;d3&#x27;,&#x27;Finance&#x27;), (&#x27;d4&#x27;,&#x27;Sales&#x27;);
+INSERT INTO Employee (name, dept_id, salary, city) VALUES (&#x27;Amit&#x27;,&#x27;d1&#x27;,50000,&#x27;Jaipur&#x27;);
+
+UPDATE Employee SET salary = salary * 1.10 WHERE dept_id = &#x27;d1&#x27;;   -- 10% hike for IT
+DELETE FROM Employee WHERE emp_id = 6;</pre></div><button onclick="dn(this)">Mark as done</button></div></details>
+<details><summary>4. SELECT Basics: WHERE, LIKE, IN, BETWEEN, ORDER BY, LIMIT</summary><div class="in"><div class="en"><div class="t">ENGLISH</div><ul><li><code>SELECT col1, col2 FROM table</code>; <code>*</code> = all columns (avoid in real code). <code>DISTINCT</code> removes duplicates. <code>AS</code> gives an alias.</li>
+<li><b>WHERE operators:</b> <code>= &lt;&gt; &lt; &gt; &lt;= &gt;=</code>, <code>AND OR NOT</code>, <code>IN (list)</code>, <code>BETWEEN a AND b</code> (inclusive), <code>LIKE</code> (<code>%</code> = any text, <code>_</code> = one char), <code>IS NULL / IS NOT NULL</code>.</li>
+<li><b>ORDER BY</b> col <code>ASC</code> (default) or <code>DESC</code>. <b>LIMIT n OFFSET m</b> (MySQL/PostgreSQL) = pagination; SQL Server uses <code>TOP n</code>; standard SQL uses <code>FETCH FIRST n ROWS ONLY</code>.</li>
+<li><b>Written order:</b> SELECT &rarr; FROM &rarr; WHERE &rarr; GROUP BY &rarr; HAVING &rarr; ORDER BY &rarr; LIMIT.</li></ul></div><div class="hi"><div class="t">HINGLISH</div><ul><li><code>SELECT col1, col2 FROM table</code>; <code>*</code> = saare columns (asli code me avoid). <code>DISTINCT</code> duplicates hatata hai. <code>AS</code> alias deta hai.</li>
+<li><b>WHERE operators:</b> <code>= &lt;&gt; &lt; &gt; &lt;= &gt;=</code>, <code>AND OR NOT</code>, <code>IN (list)</code>, <code>BETWEEN a AND b</code> (dono end shamil), <code>LIKE</code> (<code>%</code> = koi bhi text, <code>_</code> = ek character), <code>IS NULL / IS NOT NULL</code>.</li>
+<li><b>ORDER BY</b> col <code>ASC</code> (default) ya <code>DESC</code>. <b>LIMIT n OFFSET m</b> (MySQL/PostgreSQL) = pagination; SQL Server me <code>TOP n</code>; standard SQL me <code>FETCH FIRST n ROWS ONLY</code>.</li>
+<li><b>Likhne ka order:</b> SELECT &rarr; FROM &rarr; WHERE &rarr; GROUP BY &rarr; HAVING &rarr; ORDER BY &rarr; LIMIT.</li></ul></div><div class="ex"><pre>SELECT DISTINCT city FROM Employee;                          -- Jaipur, Delhi, Mumbai
+SELECT name, salary AS pay FROM Employee WHERE salary BETWEEN 40000 AND 60000;
+SELECT * FROM Employee WHERE name LIKE &#x27;R%&#x27;;                 -- Riya, Rohit
+SELECT * FROM Employee WHERE city IN (&#x27;Delhi&#x27;,&#x27;Mumbai&#x27;) AND dept_id IS NOT NULL;
+SELECT name FROM Employee ORDER BY salary DESC, name ASC LIMIT 3 OFFSET 0;</pre></div><button onclick="dn(this)">Mark as done</button></div></details>
+<details><summary>5. Functions, CASE &amp; NULL Handling</summary><div class="in"><div class="en"><div class="t">ENGLISH</div><ul><li><b>Aggregate:</b> <code>COUNT, SUM, AVG, MIN, MAX</code>. <code>COUNT(*)</code> counts all rows; <code>COUNT(col)</code> skips NULLs; <code>COUNT(DISTINCT col)</code> counts unique values.</li>
+<li><b>String:</b> <code>UPPER, LOWER, LENGTH, CONCAT, SUBSTRING, TRIM, REPLACE</code>. <b>Numeric:</b> <code>ROUND, CEIL, FLOOR, ABS, MOD</code>. <b>Date:</b> <code>NOW(), CURDATE(), DATE_ADD, DATEDIFF, YEAR(), MONTH()</code> (names vary by DB).</li>
+<li><b>NULL</b> means unknown. <code>NULL = NULL</code> is not true; use <code>IS NULL</code>. Any arithmetic with NULL gives NULL. <code>COALESCE(a,b,c)</code> returns the first non-NULL; <code>IFNULL / NVL</code> for two values. <code>NULLIF(a,b)</code> returns NULL if equal (avoid divide by zero).</li>
+<li><b>CASE</b> is SQL&rsquo;s if-else.</li></ul></div><div class="hi"><div class="t">HINGLISH</div><ul><li><b>Aggregate:</b> <code>COUNT, SUM, AVG, MIN, MAX</code>. <code>COUNT(*)</code> saari rows ginta hai; <code>COUNT(col)</code> NULL skip karta hai; <code>COUNT(DISTINCT col)</code> unique values ginta hai.</li>
+<li><b>String:</b> <code>UPPER, LOWER, LENGTH, CONCAT, SUBSTRING, TRIM, REPLACE</code>. <b>Numeric:</b> <code>ROUND, CEIL, FLOOR, ABS, MOD</code>. <b>Date:</b> <code>NOW(), CURDATE(), DATE_ADD, DATEDIFF, YEAR(), MONTH()</code> (naam DB ke hisaab se badalte hain).</li>
+<li><b>NULL</b> matlab unknown. <code>NULL = NULL</code> true nahi hota; <code>IS NULL</code> use karo. NULL ke saath koi bhi arithmetic NULL deta hai. <code>COALESCE(a,b,c)</code> pehli non-NULL value deta hai; <code>IFNULL / NVL</code> do values ke liye. <code>NULLIF(a,b)</code> barabar ho to NULL deta hai (divide by zero se bachne ke liye).</li>
+<li><b>CASE</b> SQL ka if-else hai.</li></ul></div><div class="ex"><pre>SELECT name,
+       CASE WHEN salary &gt;= 60000 THEN &#x27;High&#x27;
+            WHEN salary &gt;= 40000 THEN &#x27;Medium&#x27;
+            ELSE &#x27;Low&#x27; END AS grade,
+       COALESCE(dept_id, &#x27;No Dept&#x27;) AS dept
+FROM Employee;
+SELECT COUNT(*) AS total, COUNT(dept_id) AS with_dept FROM Employee;   -- 6 and 5</pre></div><button onclick="dn(this)">Mark as done</button></div></details>
+<details><summary>6. GROUP BY, HAVING &amp; Order of Execution</summary><div class="in"><div class="en"><div class="t">ENGLISH</div><b>GROUP BY</b> puts rows with the same value into groups so aggregate functions work per group. Every non-aggregated column in SELECT must be in GROUP BY. <b>WHERE</b> filters <i>rows before</i> grouping; <b>HAVING</b> filters <i>groups after</i> grouping (can use aggregates).
+<p><b>Logical execution order</b> (very common question): <b>FROM/JOIN &rarr; WHERE &rarr; GROUP BY &rarr; HAVING &rarr; SELECT &rarr; DISTINCT &rarr; ORDER BY &rarr; LIMIT</b>. That is why a column alias from SELECT can be used in ORDER BY but not in WHERE.</p></div><div class="hi"><div class="t">HINGLISH</div><b>GROUP BY</b> same value wali rows ko groups me daalta hai taaki aggregate functions har group par chalein. SELECT ka har non-aggregated column GROUP BY me hona chahiye. <b>WHERE</b> grouping se <i>pehle rows</i> filter karta hai; <b>HAVING</b> grouping ke <i>baad groups</i> filter karta hai (aggregates use kar sakta hai).
+<p><b>Logical execution order</b> (bahut common sawaal): <b>FROM/JOIN &rarr; WHERE &rarr; GROUP BY &rarr; HAVING &rarr; SELECT &rarr; DISTINCT &rarr; ORDER BY &rarr; LIMIT</b>. Isliye SELECT ka alias ORDER BY me chalta hai par WHERE me nahi.</p></div><div class="ex"><pre>SELECT dept_id, COUNT(*) AS emp_count, AVG(salary) AS avg_sal
+FROM Employee
+WHERE city &lt;&gt; &#x27;Mumbai&#x27;          -- row filter first
+GROUP BY dept_id
+HAVING AVG(salary) &gt; 45000      -- group filter after
+ORDER BY avg_sal DESC;</pre></div><button onclick="dn(this)">Mark as done</button></div></details>
+<details><summary>7. Joins: INNER, LEFT, RIGHT, FULL, CROSS, SELF</summary><div class="in"><div class="en"><div class="t">ENGLISH</div>A <b>join</b> combines rows of two tables using a related column (usually a foreign key).
+<ul><li><b>INNER JOIN:</b> only matching rows. <b>LEFT JOIN:</b> all left rows + matches (NULL if none). <b>RIGHT JOIN:</b> all right rows + matches. <b>FULL OUTER JOIN:</b> all rows from both (MySQL: LEFT UNION RIGHT). <b>CROSS JOIN:</b> every row with every row (m &times; n). <b>SELF JOIN:</b> a table joined with itself using aliases.</li>
+<li><b>Find unmatched rows:</b> LEFT JOIN and filter <code>WHERE right.key IS NULL</code>.</li>
+<li><b>ON vs WHERE:</b> for LEFT JOIN, a condition on the right table in WHERE turns it into an INNER JOIN; put it in ON instead. <code>USING(col)</code> and <b>NATURAL JOIN</b> are shortcuts (NATURAL is risky).</li></ul></div><div class="hi"><div class="t">HINGLISH</div><b>Join</b> do tables ki rows ko related column (aksar foreign key) se jodta hai.
+<ul><li><b>INNER JOIN:</b> sirf matching rows. <b>LEFT JOIN:</b> left ki saari rows + matches (na mile to NULL). <b>RIGHT JOIN:</b> right ki saari rows + matches. <b>FULL OUTER JOIN:</b> dono ki saari rows (MySQL me LEFT UNION RIGHT). <b>CROSS JOIN:</b> har row ka har row se combination (m &times; n). <b>SELF JOIN:</b> table apne aap se join, aliases ke saath.</li>
+<li><b>Unmatched rows dhoondhna:</b> LEFT JOIN karo aur <code>WHERE right.key IS NULL</code> lagao.</li>
+<li><b>ON vs WHERE:</b> LEFT JOIN me right table ki condition WHERE me lagaoge to wo INNER JOIN ban jata hai; use ON me lagao. <code>USING(col)</code> aur <b>NATURAL JOIN</b> shortcuts hain (NATURAL risky).</li></ul></div><div class="ex"><pre>-- employee with department name (Sara has no dept, so she is dropped)
+SELECT e.name, d.dept_name
+FROM Employee e INNER JOIN Department d ON e.dept_id = d.dept_id;
+
+-- all employees, even without dept
+SELECT e.name, d.dept_name
+FROM Employee e LEFT JOIN Department d ON e.dept_id = d.dept_id;   -- Sara | NULL
+
+-- departments with no employees  -&gt;  Sales
+SELECT d.dept_name
+FROM Department d LEFT JOIN Employee e ON d.dept_id = e.dept_id
+WHERE e.emp_id IS NULL;
+
+-- employee and manager (self join)
+SELECT e.name AS employee, m.name AS manager
+FROM Employee e LEFT JOIN Employee m ON e.manager_id = m.emp_id;</pre></div><button onclick="dn(this)">Mark as done</button></div></details>
+<details><summary>8. Subqueries, EXISTS &amp; Correlated Subqueries</summary><div class="in"><div class="en"><div class="t">ENGLISH</div>A <b>subquery</b> is a query inside another query (in WHERE, FROM or SELECT).
+<ul><li><b>Scalar</b> (returns 1 value): <code>salary &gt; (SELECT AVG(salary) FROM Employee)</code>. <b>Multi-row</b>: use <code>IN</code>, <code>ANY</code>, <code>ALL</code>. <b>Derived table</b>: subquery in FROM, needs an alias.</li>
+<li><b>Correlated subquery</b> uses a column from the outer query and runs once per outer row (slower). <b>EXISTS</b> returns true if the subquery returns any row; usually faster than IN for large data and safe with NULLs. <b>NOT IN</b> breaks if the list contains NULL; prefer <b>NOT EXISTS</b>.</li>
+<li>Many subqueries can be rewritten as JOINs or CTEs for speed and clarity.</li></ul></div><div class="hi"><div class="t">HINGLISH</div><b>Subquery</b> ek query ke andar doosri query hai (WHERE, FROM ya SELECT me).
+<ul><li><b>Scalar</b> (1 value deta hai): <code>salary &gt; (SELECT AVG(salary) FROM Employee)</code>. <b>Multi-row</b>: <code>IN</code>, <code>ANY</code>, <code>ALL</code> use karo. <b>Derived table</b>: FROM me subquery, alias zaroori.</li>
+<li><b>Correlated subquery</b> outer query ka column use karti hai aur har outer row ke liye chalti hai (slow). <b>EXISTS</b> true deta hai agar subquery koi bhi row de; bade data par aksar IN se fast aur NULL se safe. <b>NOT IN</b> list me NULL ho to toot jata hai; <b>NOT EXISTS</b> prefer karo.</li>
+<li>Kai subqueries ko JOIN ya CTE me likhna fast aur saaf hota hai.</li></ul></div><div class="ex"><pre>-- earns more than average (avg = 51666) -&gt; Riya, Neha, Rohit
+SELECT name FROM Employee WHERE salary &gt; (SELECT AVG(salary) FROM Employee);
+
+-- people who are managers -&gt; Amit, Riya, Karan
+SELECT name FROM Employee e
+WHERE EXISTS (SELECT 1 FROM Employee x WHERE x.manager_id = e.emp_id);
+
+-- correlated: earns more than average of own department
+SELECT name FROM Employee e
+WHERE salary &gt; (SELECT AVG(salary) FROM Employee WHERE dept_id = e.dept_id);</pre></div><button onclick="dn(this)">Mark as done</button></div></details>
+<details><summary>9. Set Operations, CTE &amp; Views</summary><div class="in"><div class="en"><div class="t">ENGLISH</div><ul><li><b>UNION</b> (combine, remove duplicates), <b>UNION ALL</b> (keep duplicates, faster), <b>INTERSECT</b> (common rows), <b>EXCEPT / MINUS</b> (in first, not in second). Both queries need the same number and compatible types of columns.</li>
+<li><b>CTE</b> (<code>WITH name AS (&hellip;)</code>) is a named temporary result; makes long queries readable. <b>Recursive CTE</b> walks hierarchies (manager tree).</li>
+<li><b>View:</b> a saved SELECT that behaves like a virtual table (hide columns, simplify joins, security). Most simple views are updatable; <b>materialized view</b> stores the result physically and must be refreshed.</li></ul></div><div class="hi"><div class="t">HINGLISH</div><ul><li><b>UNION</b> (jodo, duplicates hatao), <b>UNION ALL</b> (duplicates rakho, fast), <b>INTERSECT</b> (common rows), <b>EXCEPT / MINUS</b> (pehli me hai, dusri me nahi). Dono queries me columns ki ginti same aur types compatible hone chahiye.</li>
+<li><b>CTE</b> (<code>WITH name AS (&hellip;)</code>) naam wala temporary result hai; lambi query readable banata hai. <b>Recursive CTE</b> hierarchy (manager tree) ghoomta hai.</li>
+<li><b>View:</b> saved SELECT jo virtual table ki tarah kaam karta hai (columns chhupao, joins simple karo, security). Zyadatar simple views updatable hote hain; <b>materialized view</b> result ko physically store karta hai aur refresh karna padta hai.</li></ul></div><div class="ex"><pre>WITH dept_avg AS (
+    SELECT dept_id, AVG(salary) AS avg_sal FROM Employee GROUP BY dept_id
+)
+SELECT e.name, e.salary, d.avg_sal
+FROM Employee e JOIN dept_avg d ON e.dept_id = d.dept_id
+WHERE e.salary &gt; d.avg_sal;                       -- result: Amit (IT avg = 45000)
+
+CREATE VIEW high_paid AS
+SELECT name, salary FROM Employee WHERE salary &gt;= 60000;
+SELECT * FROM high_paid;                          -- Riya, Neha, Rohit</pre></div><button onclick="dn(this)">Mark as done</button></div></details>
+<details><summary>10. Window Functions</summary><div class="in"><div class="en"><div class="t">ENGLISH</div><b>Window functions</b> calculate over a set of rows related to the current row <i>without collapsing them</i> (unlike GROUP BY). Syntax: <code>func() OVER (PARTITION BY col ORDER BY col)</code>.
+<ul><li><b>Ranking:</b> <code>ROW_NUMBER()</code> (1,2,3,4), <code>RANK()</code> (1,1,3,4: gaps after ties), <code>DENSE_RANK()</code> (1,1,2,3: no gaps), <code>NTILE(n)</code> (buckets).</li>
+<li><b>Value access:</b> <code>LAG(col)</code> (previous row), <code>LEAD(col)</code> (next row), <code>FIRST_VALUE</code>, <code>LAST_VALUE</code>.</li>
+<li><b>Aggregates as windows:</b> <code>SUM(x) OVER (ORDER BY id)</code> = running total; <code>AVG(x) OVER (PARTITION BY dept)</code> = dept average beside each row.</li></ul></div><div class="hi"><div class="t">HINGLISH</div><b>Window functions</b> current row se related rows ke set par calculate karte hain <i>bina rows ko collapse kiye</i> (GROUP BY ke ulta). Syntax: <code>func() OVER (PARTITION BY col ORDER BY col)</code>.
+<ul><li><b>Ranking:</b> <code>ROW_NUMBER()</code> (1,2,3,4), <code>RANK()</code> (1,1,3,4: tie ke baad gap), <code>DENSE_RANK()</code> (1,1,2,3: gap nahi), <code>NTILE(n)</code> (buckets).</li>
+<li><b>Value access:</b> <code>LAG(col)</code> (pichhli row), <code>LEAD(col)</code> (agli row), <code>FIRST_VALUE</code>, <code>LAST_VALUE</code>.</li>
+<li><b>Aggregates as windows:</b> <code>SUM(x) OVER (ORDER BY id)</code> = running total; <code>AVG(x) OVER (PARTITION BY dept)</code> = har row ke saath dept average.</li></ul></div><div class="ex"><pre>SELECT name, dept_id, salary,
+       RANK()       OVER (PARTITION BY dept_id ORDER BY salary DESC) AS rnk,
+       SUM(salary)  OVER (ORDER BY emp_id)                           AS running_total,
+       LAG(salary)  OVER (ORDER BY emp_id)                           AS prev_salary
+FROM Employee;
+-- Nth highest salary (N = 2) -&gt; 60000
+SELECT DISTINCT salary FROM (
+  SELECT salary, DENSE_RANK() OVER (ORDER BY salary DESC) AS r FROM Employee) t
+WHERE r = 2;</pre></div><button onclick="dn(this)">Mark as done</button></div></details>
+<details><summary>11. Indexes, Constraints &amp; Query Performance</summary><div class="in"><div class="en"><div class="t">ENGLISH</div><ul><li><b>Index:</b> a lookup structure (usually B+ tree) that speeds up WHERE, JOIN, ORDER BY on a column; slows down INSERT/UPDATE slightly and uses space. <b>PRIMARY KEY</b> and <b>UNIQUE</b> create indexes automatically. <b>Composite index</b> follows the <i>leftmost prefix</i> rule.</li>
+<li><b>Write fast queries:</b> select only needed columns, filter early, index join/filter columns, avoid functions on indexed columns (<code>WHERE YEAR(d)=2026</code> kills the index; use a date range), avoid leading wildcard <code>LIKE &lsquo;%abc&rsquo;</code>, use <code>EXISTS</code> over <code>IN</code> for big lists, use <code>LIMIT</code>.</li>
+<li><b>EXPLAIN</b> shows the execution plan (index used? full scan?). <b>Normalization</b> reduces duplicates; <b>denormalization</b> speeds up reads.</li></ul></div><div class="hi"><div class="t">HINGLISH</div><ul><li><b>Index:</b> lookup structure (aksar B+ tree) jo column par WHERE, JOIN, ORDER BY ko fast karta hai; INSERT/UPDATE thoda slow aur extra space. <b>PRIMARY KEY</b> aur <b>UNIQUE</b> index khud banate hain. <b>Composite index</b> me <i>leftmost prefix</i> rule.</li>
+<li><b>Fast queries ke tareeke:</b> sirf zaroori columns select karo, jaldi filter, join/filter columns par index, indexed column par function mat lagao (<code>WHERE YEAR(d)=2026</code> index kharab karta hai; date range use karo), shuru me wildcard wala <code>LIKE &lsquo;%abc&rsquo;</code> avoid, bade lists ke liye <code>IN</code> ki jagah <code>EXISTS</code>, <code>LIMIT</code> lagao.</li>
+<li><b>EXPLAIN</b> execution plan dikhata hai (index use hua? full scan?). <b>Normalization</b> duplicates kam karta hai; <b>denormalization</b> read fast karta hai.</li></ul></div><div class="ex"><pre>CREATE INDEX idx_dept_city ON Employee (dept_id, city);   -- helps dept_id, or dept_id+city
+EXPLAIN SELECT * FROM Employee WHERE dept_id = &#x27;d1&#x27;;</pre></div><button onclick="dn(this)">Mark as done</button></div></details>
+<details><summary>12. Transactions, TCL &amp; DCL</summary><div class="in"><div class="en"><div class="t">ENGLISH</div><ul><li><b>Transaction</b> = group of statements that succeed or fail together (<b>ACID</b>: Atomicity, Consistency, Isolation, Durability). <code>START TRANSACTION / BEGIN</code>, <code>COMMIT</code> (save), <code>ROLLBACK</code> (undo), <code>SAVEPOINT name</code> + <code>ROLLBACK TO name</code>. Many DBs auto-commit each statement by default.</li>
+<li><b>Isolation levels:</b> Read Uncommitted &rarr; Read Committed &rarr; Repeatable Read &rarr; Serializable (prevent dirty, non-repeatable and phantom reads). <b>Locks</b> and <b>deadlocks</b> can occur.</li>
+<li><b>DCL:</b> <code>GRANT SELECT, INSERT ON db.Employee TO user</code>; <code>REVOKE</code>. Give least privilege.</li></ul></div><div class="hi"><div class="t">HINGLISH</div><ul><li><b>Transaction</b> = statements ka group jo saath safal ya saath fail hote hain (<b>ACID</b>: Atomicity, Consistency, Isolation, Durability). <code>START TRANSACTION / BEGIN</code>, <code>COMMIT</code> (save), <code>ROLLBACK</code> (undo), <code>SAVEPOINT name</code> + <code>ROLLBACK TO name</code>. Kai DBs me har statement default me auto-commit hota hai.</li>
+<li><b>Isolation levels:</b> Read Uncommitted &rarr; Read Committed &rarr; Repeatable Read &rarr; Serializable (dirty, non-repeatable aur phantom reads rokte hain). <b>Locks</b> aur <b>deadlocks</b> ho sakte hain.</li>
+<li><b>DCL:</b> <code>GRANT SELECT, INSERT ON db.Employee TO user</code>; <code>REVOKE</code>. Kam se kam privilege do.</li></ul></div><div class="ex"><pre>START TRANSACTION;
+UPDATE Account SET balance = balance - 500 WHERE id = &#x27;A&#x27;;
+UPDATE Account SET balance = balance + 500 WHERE id = &#x27;B&#x27;;
+COMMIT;      -- or ROLLBACK; if something fails</pre></div><button onclick="dn(this)">Mark as done</button></div></details>
+<details><summary>13. Stored Procedures, Functions, Triggers &amp; Cursors</summary><div class="in"><div class="en"><div class="t">ENGLISH</div><ul><li><b>Stored procedure:</b> saved SQL code you call with <code>CALL name(args)</code>; can take IN/OUT parameters, may change data. <b>Function:</b> returns a value and is used inside queries. Benefits: reuse, speed, security, less network traffic.</li>
+<li><b>Trigger:</b> runs automatically <code>BEFORE/AFTER INSERT/UPDATE/DELETE</code> (audit logs, validation). Use carefully; hidden logic is hard to debug.</li>
+<li><b>Cursor:</b> processes query rows one by one (slow; prefer set-based SQL).</li></ul></div><div class="hi"><div class="t">HINGLISH</div><ul><li><b>Stored procedure:</b> saved SQL code jise <code>CALL name(args)</code> se chalate hain; IN/OUT parameters le sakta hai, data badal sakta hai. <b>Function:</b> value return karta hai aur queries ke andar use hota hai. Fayde: reuse, speed, security, kam network traffic.</li>
+<li><b>Trigger:</b> <code>BEFORE/AFTER INSERT/UPDATE/DELETE</code> par apne aap chalta hai (audit logs, validation). Dhyaan se use karo; chhupa logic debug karna mushkil.</li>
+<li><b>Cursor:</b> query ki rows ko ek-ek karke process karta hai (slow; set-based SQL prefer karo).</li></ul></div><div class="ex"><pre>DELIMITER //
+CREATE PROCEDURE raise_salary(IN d VARCHAR(5), IN pct DECIMAL(5,2))
+BEGIN
+    UPDATE Employee SET salary = salary * (1 + pct/100) WHERE dept_id = d;
+END //
+DELIMITER ;
+CALL raise_salary(&#x27;d1&#x27;, 10);
+
+CREATE TRIGGER log_delete AFTER DELETE ON Employee
+FOR EACH ROW INSERT INTO audit_log (emp_id, action) VALUES (OLD.emp_id, &#x27;deleted&#x27;);</pre></div><button onclick="dn(this)">Mark as done</button></div></details>
+<details><summary>14. Practice: 16 Interview Queries (try first, then reveal)</summary><div class="in"><div class="tip">Cover the answer, write the query yourself, then tap <b>Show answer</b>. Use the sample tables in topic 1.</div><div class="q"><b>1. Employees who live in Jaipur.</b><br><button class="g" onclick="var a=this.nextElementSibling;var s=a.style.display===&quot;block&quot;;a.style.display=s?&quot;none&quot;:&quot;block&quot;;this.textContent=s?&quot;Show answer&quot;:&quot;Hide answer&quot;">Show answer</button><div style="display:none"><pre>SELECT * FROM Employee WHERE city = &#x27;Jaipur&#x27;;</pre><div><b>Result:</b> Amit, Karan, Sara</div></div></div><div class="q"><b>2. Number of employees in each department.</b><br><button class="g" onclick="var a=this.nextElementSibling;var s=a.style.display===&quot;block&quot;;a.style.display=s?&quot;none&quot;:&quot;block&quot;;this.textContent=s?&quot;Show answer&quot;:&quot;Hide answer&quot;">Show answer</button><div style="display:none"><pre>SELECT dept_id, COUNT(*) AS cnt FROM Employee GROUP BY dept_id;</pre><div><b>Result:</b> d1: 2, d2: 2, d3: 1, NULL: 1</div></div></div><div class="q"><b>3. Departments whose average salary is more than 45000.</b><br><button class="g" onclick="var a=this.nextElementSibling;var s=a.style.display===&quot;block&quot;;a.style.display=s?&quot;none&quot;:&quot;block&quot;;this.textContent=s?&quot;Show answer&quot;:&quot;Hide answer&quot;">Show answer</button><div style="display:none"><pre>SELECT dept_id, AVG(salary) FROM Employee GROUP BY dept_id HAVING AVG(salary) &gt; 45000;</pre><div><b>Result:</b> d2 (60000), d3 (70000)</div></div></div><div class="q"><b>4. Second highest salary.</b><br><button class="g" onclick="var a=this.nextElementSibling;var s=a.style.display===&quot;block&quot;;a.style.display=s?&quot;none&quot;:&quot;block&quot;;this.textContent=s?&quot;Show answer&quot;:&quot;Hide answer&quot;">Show answer</button><div style="display:none"><pre>SELECT MAX(salary) FROM Employee WHERE salary &lt; (SELECT MAX(salary) FROM Employee);</pre><div><b>Result:</b> 60000</div></div></div><div class="q"><b>5. Employees without any department.</b><br><button class="g" onclick="var a=this.nextElementSibling;var s=a.style.display===&quot;block&quot;;a.style.display=s?&quot;none&quot;:&quot;block&quot;;this.textContent=s?&quot;Show answer&quot;:&quot;Hide answer&quot;">Show answer</button><div style="display:none"><pre>SELECT name FROM Employee WHERE dept_id IS NULL;</pre><div><b>Result:</b> Sara</div></div></div><div class="q"><b>6. Departments that have no employees.</b><br><button class="g" onclick="var a=this.nextElementSibling;var s=a.style.display===&quot;block&quot;;a.style.display=s?&quot;none&quot;:&quot;block&quot;;this.textContent=s?&quot;Show answer&quot;:&quot;Hide answer&quot;">Show answer</button><div style="display:none"><pre>SELECT d.dept_name FROM Department d LEFT JOIN Employee e ON d.dept_id = e.dept_id WHERE e.emp_id IS NULL;</pre><div><b>Result:</b> Sales</div></div></div><div class="q"><b>7. Employee name with manager name.</b><br><button class="g" onclick="var a=this.nextElementSibling;var s=a.style.display===&quot;block&quot;;a.style.display=s?&quot;none&quot;:&quot;block&quot;;this.textContent=s?&quot;Show answer&quot;:&quot;Hide answer&quot;">Show answer</button><div style="display:none"><pre>SELECT e.name, m.name AS manager FROM Employee e LEFT JOIN Employee m ON e.manager_id = m.emp_id;</pre><div><b>Result:</b> Amit-NULL, Riya-Amit, Karan-Amit, Neha-Riya, Rohit-Riya, Sara-Karan</div></div></div><div class="q"><b>8. Salaries that appear more than once.</b><br><button class="g" onclick="var a=this.nextElementSibling;var s=a.style.display===&quot;block&quot;;a.style.display=s?&quot;none&quot;:&quot;block&quot;;this.textContent=s?&quot;Show answer&quot;:&quot;Hide answer&quot;">Show answer</button><div style="display:none"><pre>SELECT salary, COUNT(*) FROM Employee GROUP BY salary HAVING COUNT(*) &gt; 1;</pre><div><b>Result:</b> 60000 (2 times: Riya, Rohit)</div></div></div><div class="q"><b>9. Employees earning more than the company average.</b><br><button class="g" onclick="var a=this.nextElementSibling;var s=a.style.display===&quot;block&quot;;a.style.display=s?&quot;none&quot;:&quot;block&quot;;this.textContent=s?&quot;Show answer&quot;:&quot;Hide answer&quot;">Show answer</button><div style="display:none"><pre>SELECT name FROM Employee WHERE salary &gt; (SELECT AVG(salary) FROM Employee);</pre><div><b>Result:</b> Riya, Neha, Rohit (average is about 51667)</div></div></div><div class="q"><b>10. Total salary spent per city.</b><br><button class="g" onclick="var a=this.nextElementSibling;var s=a.style.display===&quot;block&quot;;a.style.display=s?&quot;none&quot;:&quot;block&quot;;this.textContent=s?&quot;Show answer&quot;:&quot;Hide answer&quot;">Show answer</button><div style="display:none"><pre>SELECT city, SUM(salary) AS total FROM Employee GROUP BY city;</pre><div><b>Result:</b> Jaipur 120000, Delhi 120000, Mumbai 70000</div></div></div><div class="q"><b>11. Top 3 highest paid employees (ties included).</b><br><button class="g" onclick="var a=this.nextElementSibling;var s=a.style.display===&quot;block&quot;;a.style.display=s?&quot;none&quot;:&quot;block&quot;;this.textContent=s?&quot;Show answer&quot;:&quot;Hide answer&quot;">Show answer</button><div style="display:none"><pre>SELECT name, salary FROM (SELECT name, salary, DENSE_RANK() OVER (ORDER BY salary DESC) r FROM Employee) t WHERE r &lt;= 3;</pre><div><b>Result:</b> Neha 70000, Riya 60000, Rohit 60000, Amit 50000</div></div></div><div class="q"><b>12. Highest paid employee in each department.</b><br><button class="g" onclick="var a=this.nextElementSibling;var s=a.style.display===&quot;block&quot;;a.style.display=s?&quot;none&quot;:&quot;block&quot;;this.textContent=s?&quot;Show answer&quot;:&quot;Hide answer&quot;">Show answer</button><div style="display:none"><pre>SELECT * FROM (SELECT name, dept_id, salary, RANK() OVER (PARTITION BY dept_id ORDER BY salary DESC) r FROM Employee WHERE dept_id IS NOT NULL) t WHERE r = 1;</pre><div><b>Result:</b> Amit (d1), Riya and Rohit (d2, tie), Neha (d3)</div></div></div><div class="q"><b>13. Running total of salary by emp_id.</b><br><button class="g" onclick="var a=this.nextElementSibling;var s=a.style.display===&quot;block&quot;;a.style.display=s?&quot;none&quot;:&quot;block&quot;;this.textContent=s?&quot;Show answer&quot;:&quot;Hide answer&quot;">Show answer</button><div style="display:none"><pre>SELECT name, SUM(salary) OVER (ORDER BY emp_id) AS running FROM Employee;</pre><div><b>Result:</b> 50000, 110000, 150000, 220000, 280000, 310000</div></div></div><div class="q"><b>14. Department(s) with the most employees.</b><br><button class="g" onclick="var a=this.nextElementSibling;var s=a.style.display===&quot;block&quot;;a.style.display=s?&quot;none&quot;:&quot;block&quot;;this.textContent=s?&quot;Show answer&quot;:&quot;Hide answer&quot;">Show answer</button><div style="display:none"><pre>SELECT dept_id FROM Employee WHERE dept_id IS NOT NULL GROUP BY dept_id HAVING COUNT(*) = (SELECT MAX(c) FROM (SELECT COUNT(*) c FROM Employee WHERE dept_id IS NOT NULL GROUP BY dept_id) x);</pre><div><b>Result:</b> d1 and d2 (2 each)</div></div></div><div class="q"><b>15. Delete duplicate rows, keep the lowest id (by email).</b><br><button class="g" onclick="var a=this.nextElementSibling;var s=a.style.display===&quot;block&quot;;a.style.display=s?&quot;none&quot;:&quot;block&quot;;this.textContent=s?&quot;Show answer&quot;:&quot;Hide answer&quot;">Show answer</button><div style="display:none"><pre>DELETE FROM Employee WHERE emp_id NOT IN (SELECT MIN(emp_id) FROM (SELECT * FROM Employee) t GROUP BY email);</pre><div><b>Result:</b> Keeps one row per email (MySQL needs the derived-table trick)</div></div></div><div class="q"><b>16. How many employees have no department (using counts)?</b><br><button class="g" onclick="var a=this.nextElementSibling;var s=a.style.display===&quot;block&quot;;a.style.display=s?&quot;none&quot;:&quot;block&quot;;this.textContent=s?&quot;Show answer&quot;:&quot;Hide answer&quot;">Show answer</button><div style="display:none"><pre>SELECT COUNT(*) - COUNT(dept_id) AS no_dept FROM Employee;</pre><div><b>Result:</b> 1</div></div></div><button onclick="dn(this)">Mark as done</button></div></details>
+<details><summary>15. Top Interview Questions (Quick Revision)</summary><div class="in"><div class="sc"><table style="width:100%"><tr><th style="width:32%">Question</th><th>Short answer (English / Hinglish)</th></tr><tr><td>DELETE vs TRUNCATE vs DROP?</td><td>Delete some rows (WHERE, rollback possible); truncate all rows fast; drop the whole table. <i>Kuch rows / saari rows jaldi / poori table.</i></td></tr><tr><td>WHERE vs HAVING?</td><td>WHERE filters rows before grouping; HAVING filters groups after. <i>WHERE rows par, HAVING groups par.</i></td></tr><tr><td>INNER vs LEFT JOIN?</td><td>INNER keeps matches only; LEFT keeps all left rows. <i>INNER sirf match, LEFT left ki sab rows.</i></td></tr><tr><td>UNION vs UNION ALL?</td><td>UNION removes duplicates; UNION ALL keeps them and is faster. <i>UNION duplicates hatata hai.</i></td></tr><tr><td>Primary key vs Unique key?</td><td>Primary: unique + not null, one per table. Unique: allows NULL, many allowed. <i>Primary ek, unique kai.</i></td></tr><tr><td>RANK vs DENSE_RANK vs ROW_NUMBER?</td><td>1,1,3 vs 1,1,2 vs 1,2,3. <i>Tie par gap, bina gap, ya unique number.</i></td></tr><tr><td>COUNT(*) vs COUNT(col)?</td><td>COUNT(*) counts all rows; COUNT(col) skips NULLs. <i>COUNT(col) NULL ignore karta hai.</i></td></tr><tr><td>IN vs EXISTS?</td><td>IN compares to a list; EXISTS checks if any row exists, safer with NULLs. <i>EXISTS bade data aur NULL ke liye behtar.</i></td></tr><tr><td>What is a view?</td><td>Saved query acting as a virtual table. <i>Virtual table.</i></td></tr><tr><td>Clustered vs non-clustered index?</td><td>Clustered sets physical row order (one per table); non-clustered is a separate structure (many). <i>Clustered ek, non-clustered kai.</i></td></tr><tr><td>What is a CTE?</td><td>Named temporary result defined with WITH. <i>WITH se naam wala temporary result.</i></td></tr><tr><td>Stored procedure vs function?</td><td>Procedure is called with CALL and can change data; function returns a value and is used in queries. <i>Procedure CALL se, function query me.</i></td></tr><tr><td>What is normalization?</td><td>Organising tables to remove redundancy (1NF, 2NF, 3NF, BCNF). <i>Repetition hatane ke liye tables todna.</i></td></tr><tr><td>How to find duplicates?</td><td>GROUP BY the column and HAVING COUNT(*) &gt; 1. <i>GROUP BY + HAVING COUNT(*) &gt; 1.</i></td></tr><tr><td>NULL comparison?</td><td>Use IS NULL, not = NULL. <i>= NULL kabhi true nahi hota.</i></td></tr><tr><td>Order of execution of a query?</td><td>FROM, WHERE, GROUP BY, HAVING, SELECT, ORDER BY, LIMIT. <i>Ye logical order hai.</i></td></tr></table></div><div class="tip"><b>How to answer:</b> one-line definition, small query example, one trade-off. <i>(Pehle definition, phir chhota query example, phir ek trade-off.)</i></div><button onclick="dn(this)">Mark as done</button></div></details>
+
+<h2>🧪 Practice Quiz</h2><div id="sc">Score: 0 / 12</div><div id="qz"></div>
+</div><script>
+var T=document.querySelectorAll("details");
+function up(){var d=document.querySelectorAll("details.done").length;document.getElementById("p").style.width=(100*d/T.length)+"%";document.getElementById("pt").textContent=d+" of "+T.length+" topics done"}
+function dn(b){var d=b.closest("details");d.classList.toggle("done");b.textContent=d.classList.contains("done")?"Undo done":"Mark as done";up()}
+function tg(o){T.forEach(function(d){d.open=o})}
+function lg(m,b){document.body.className=m;document.querySelectorAll(".lb").forEach(function(x){x.classList.remove("on")});b.classList.add("on")}
+document.getElementById("s").addEventListener("input",function(e){var v=e.target.value.toLowerCase();T.forEach(function(d){d.style.display=d.textContent.toLowerCase().indexOf(v)>-1?"":"none";if(v&&d.style.display==="")d.open=true})});
+var Q=[["Which clause filters groups after GROUP BY?",["WHERE","HAVING","LIMIT"],1],
+["Which statement removes the whole table structure?",["DELETE","TRUNCATE","DROP"],2],
+["How do you test for NULL?",["= NULL","IS NULL","== NULL"],1],
+["Which join keeps all rows from the left table?",["INNER JOIN","LEFT JOIN","CROSS JOIN"],1],
+["RANK() output for salaries 70,60,60,50?",["1,2,3,4","1,2,2,3","1,2,2,4"],2],
+["COUNT(col) does what with NULLs?",["Counts them","Skips them","Errors"],1],
+["Which is NOT a DDL command?",["CREATE","ALTER","UPDATE"],2],
+["UNION ALL differs from UNION because it…",["Keeps duplicates","Sorts rows","Needs same table"],0],
+["Which is the correct logical order?",["SELECT, FROM, WHERE","FROM, WHERE, SELECT","WHERE, FROM, SELECT"],1],
+["Safer than NOT IN when NULLs may exist?",["NOT EXISTS","LIKE","DISTINCT"],0],
+["Which keyword undoes a transaction?",["COMMIT","ROLLBACK","SAVE"],1],
+["Wildcard matching any number of characters in LIKE?",["_","%","*"],1]];
+var n=0,c=0,h="";
+Q.forEach(function(q,i){h+='<div class="q"><b>'+(i+1)+". "+q[0]+"</b>";q[1].forEach(function(o,j){h+='<button class="opt" onclick="ans(this,'+(j==q[2])+')">'+o+"</button>"});h+="</div>"});
+document.getElementById("qz").innerHTML=h;
+function ans(b,ok){var p=b.parentNode;if(p.dataset.d)return;if(ok){p.dataset.d=1;c++;n++;b.classList.add("r");b.textContent+=" ✅ Correct!"}else{b.classList.add("x");b.textContent+=" ❌ Try again"}document.getElementById("sc").textContent="Score: "+c+" / "+Q.length}
+function eff(){var t=document.documentElement.getAttribute("data-theme");if(t)return t;return window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}
+function st(t){document.documentElement.setAttribute("data-theme",t);document.getElementById("th").textContent=t==="dark"?"☀️ Light":"🌙 Dark";try{localStorage.setItem("sqlTheme",t)}catch(e){}}
+function tt(){st(eff()==="dark"?"light":"dark")}
+var sv=null;try{sv=localStorage.getItem("sqlTheme")}catch(e){}
+st(sv==="dark"||sv==="light"?sv:eff());
+up();
+</script></body></html>
